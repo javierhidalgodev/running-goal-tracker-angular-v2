@@ -2,26 +2,51 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.7.
 
-## Development server
+## Descripción.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Aplicación web que sirve para el registro de retos de running.
+1. Crea una cuenta.
+2. Registra tus retos, eligiendo como parámetros:
+   - Nombre de la actividad.
+   - Descripción.
+   - Fecha de inicio.
+   - Fecha de finalización.
+   - Cantidad de kilómetros a recorrer.
 
-## Code scaffolding
+    Además el sistema registrará:
+   - Día de registro del reto.
+   - Estado como incompleto.
+3. Desde la página de tu reto, registra actividades para completarlo. En cada actividad debes indicar:
+   - Distancia recorrida.
+   - Día de la actividad.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+    Además el sistema registrará:
+   - Día de registro de la actividad.
 
-## Build
+Todos los detalles del reto podrán ser consultados en su propia página, desde la cuál también se añadirán/eliminarán las actividades, o se podrá eliminar el propio reto.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Una vez completado el día (en fecha), el sistema te avisará con un mensaje de completado. A partir de entonces ya no se podrán añadir más kilómetros. Tampoco se podrán añadir más kilómetros si la actividad no se ha finalizado, pero está fuera de plazo, dejando el reto incompleto.
 
-## Running unit tests
+En relación con el perfil de usuario, este se registrará con:
+1. Nombre de usuario.
+2. Email.
+3. Contraseña.
+4. Fecha de nacimiento (opcional).
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Desde la página del perfil, se podrá borrar el mismo.
 
-## Running end-to-end tests
+## Estructura del proyecto.
+    - Front End con Angular + Tailwind.
+    - Back End con Firebase: auth y firestore.
+    - Testing: soon.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Tareas
 
-## Further help
+- [x] Iniciar proyecto `Angular`.
+- [x] Añadir `Tailwind` y configurar.
+- [x] Conectar el proyecto con `Firebase` para utilizar la autenticación y la base de datos.
+  - [x] Configurar autenticación.
+  - [x] Configurar base de datos.
+- [x] Environments.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- [ ] Componente de `login`.
