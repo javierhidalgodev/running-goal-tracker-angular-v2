@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-signin',
@@ -7,6 +7,10 @@ import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
   styleUrl: './signin.component.sass'
 })
 export class SigninComponent {
+  signInForm: FormGroup = this._fb.group({
+    
+  })
+
   constructor (
     private _fb: FormBuilder
   ) { }
