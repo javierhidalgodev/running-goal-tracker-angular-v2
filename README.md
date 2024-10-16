@@ -63,6 +63,10 @@ Desde la página del perfil, se podrá borrar el mismo.
 - [x] Layout para la parte privada.
 
 - [x] Componente de `New Goal`.
-  - [ ] UI.
+  - [x] UI.
   - [ ] Lógica.
   - La lógica de validación para las fechas, que sean correctas, que no esté una sobre la otra, incluso que sean requeridas, cuando tenemos el parámetro de `pristine`, se vuelve complicada.
+
+- [x] Componente de `Goals list`.
+  - [x] UI.
+  - [ ] Lógica.

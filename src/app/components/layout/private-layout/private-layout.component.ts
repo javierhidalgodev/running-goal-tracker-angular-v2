@@ -6,9 +6,9 @@ import { AuthService } from 'app/services/auth.service';
   selector: 'app-private-layout',
   template: `
   <header class="h-[50px] p-3 flex items-center bg-neutral-900">
-    <nav class="w-full flex items-center gap-24">
+    <nav class="w-full flex items-center gap-4">
       <a routerLink="/goals">GOAL LIST</a>
-      <a routerLink="new-goal">NEW GOAL</a>
+      <!-- <a routerLink="new-goal">NEW GOAL</a> -->
       <button class="w-fit py-2 px-6 mr-0 ml-auto text-sm font-semibold bg-green-600 hover:bg-green-700 rounded-md" (click)="logout()">Logout</button>
     </nav>
   </header>
