@@ -49,4 +49,20 @@ Desde la página del perfil, se podrá borrar el mismo.
   - [x] Configurar base de datos.
 - [x] Environments.
 
-- [ ] Componente de `login`.
+- [x] Componente de `Sign In`.
+  - [x] UI.
+  - [x] Lógica.
+- [x] Componente de `Sign Up`.
+  - [x] UI.
+  - [x] Lógica.
+
+- [x] `Guard` privado y público.
+  - [x] Configuración del `guard`.
+  - [x] Configuración de las rutas. En mi caso, al ser una app basada en módulo, y no en componentes *standalone*, estoy teniendo problemas con el tema de la carga perezosa. Parece funcionar el tema de las rutas hijas, pero no sé si la carga está siendo del todo perezosa.
+
+- [x] Layout para la parte privada.
+
+- [x] Componente de `New Goal`.
+  - [ ] UI.
+  - [ ] Lógica.
+  - La lógica de validación para las fechas, que sean correctas, que no esté una sobre la otra, incluso que sean requeridas, cuando tenemos el parámetro de `pristine`, se vuelve complicada.

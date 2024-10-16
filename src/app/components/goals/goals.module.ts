@@ -5,12 +5,14 @@ import { GoalsRoutingModule } from './goals-routing.module';
 import { GoalListComponent } from './goal-list/goal-list.component';
 import { GoalFormComponent } from './goal-form/goal-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { GoalTableComponent } from './goal-table/goal-table.component';
 
 
 @NgModule({
   declarations: [
     GoalListComponent,
-    GoalFormComponent
+    GoalFormComponent,
+    GoalTableComponent
   ],
   imports: [
     CommonModule,
