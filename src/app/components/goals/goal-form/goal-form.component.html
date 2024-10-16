@@ -1,0 +1,47 @@
+<section class="max-w-[450px] p-6">
+  <h1 class="text-xl font-bold mb-2">Create a new goal</h1>
+
+  <form
+    class="flex flex-col gap-4 [&>*]:flex [&>*]:flex-col [&_label]:text-sm [&_label]:mb-1"
+    [formGroup]="goalForm"
+    (ngSubmit)="submitGoalForm()"
+  >
+    <div>
+      <label for="">Name it</label>
+      <input
+        type="text"
+        id="goal-title"
+        placeholder="Be original"
+        formControlName="title"
+      />
+    </div>
+    <div>
+      <label for="">Describe it</label>
+      <input
+        type="text"
+        id="goal-description"
+        placeholder="Feel free to go into detail... but not too much 🤣"
+        formControlName="description"
+      />
+    </div>
+    <div>
+      <label for="">Start Date</label>
+      <input type="date" id="goal-start-date" formControlName="startDate" />
+    </div>
+    <div>
+      <label for="">End Date</label>
+      <input type="date" id="goal-end-date" formControlName="endDate" />
+    </div>
+    <div>
+      <label for="">KM goal</label>
+      <input
+        type="number"
+        value="1"
+        min="1"
+        id="goal-km"
+        formControlName="km"
+      />
+    </div>
+    <button class="w-full mt-4 py-2 text-sm font-semibold bg-green-600 hover:bg-green-700 rounded-md">Add</button>
+  </form>
+</section>

@@ -17,7 +17,6 @@ export const privateGuard = (): CanActivateFn => {
         return true
       })
     )
-
   };
 };
 
@@ -26,6 +25,14 @@ export const publicGuard = (): CanActivateFn => {
     const router = inject(Router)
     const authState = inject(AuthService)
 
-    return true
+    return authState.authState$.pipe(
+      map(state => {
+        if (state) {
+          router.navigate(['/goals'])
+          return false
+        }
+        return true
+      })
+    )
   };
 };
