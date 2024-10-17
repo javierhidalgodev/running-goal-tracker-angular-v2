@@ -1,7 +1,7 @@
 import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from "@angular/forms"
 import { isValidDate } from 'rxjs/internal/util/isDate'
 
-export type FormFieldName = 'email' | 'password' | 'title' | 'startDate' | 'endDate' | 'km'
+export type FormFieldName = 'email' | 'password' | 'title' | 'startDate' | 'endDate' | 'km' | 'runDate'
 
 export const isRequired = (field: FormFieldName, form: FormGroup) => {
 	const control = form.get(field)

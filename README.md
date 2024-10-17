@@ -64,9 +64,18 @@ Desde la página del perfil, se podrá borrar el mismo.
 
 - [x] Componente de `New Goal`.
   - [x] UI.
-  - [ ] Lógica.
+  - [x] Lógica.
   - La lógica de validación para las fechas, que sean correctas, que no esté una sobre la otra, incluso que sean requeridas, cuando tenemos el parámetro de `pristine`, se vuelve complicada.
 
 - [x] Componente de `Goals list`.
   - [x] UI.
+  - [x] Lógica.
+
+- [x] Componente de `Goal detail`.
+  - [x] UI.
+  - [x] Lógica.
+
+- [x] Módulo de `Activity form`.
+  - [x] Componente de formulario.
+  - [ ] Utilizar el servicio de goal o crear uno específico.
   - [ ] Lógica.

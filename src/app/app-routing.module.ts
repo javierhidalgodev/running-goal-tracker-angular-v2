@@ -16,6 +16,12 @@ const routes: Routes = [
     loadChildren: () => import('./components/goals/goals.module'),
   },
   {
+    canActivate: [privateGuard()],
+    path: 'activity',
+    component: PrivateLayoutComponent,
+    loadChildren: () => import('./components/activity/activity.module'),
+  },
+  {
     path: '**',
     redirectTo: 'goals'
   }
