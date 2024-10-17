@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, withComponentInputBinding } from '@angular/router';
 import { privateGuard, publicGuard } from './auth.guard';
 import PrivateLayoutComponent from '@components/layout/private-layout/private-layout.component';
 
@@ -22,7 +22,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [
+    RouterModule.forRoot(routes, {
+      bindToComponentInputs: true
+      // features: [withComponentInputBinding()]
+    })],
+  exports: [RouterModule],
 })
 export class AppRoutingModule { }

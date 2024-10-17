@@ -10,14 +10,26 @@
 		</thead>
 		<tbody class="bg-neutral-700">
 			<!-- El track se usa para tener un control del renderizado sobre los elementos más efectivo -->
-			@for (goal of goals(); track goal.id) {
+			@for (goal of goals(); track goal.id; let index = $index) {
 				<tr>
-					<td>{{ goal.id }}</td>
-					<td>{{ goal.title }}</td>
-					<td>{{ goal.startDate }}</td>
-					<td>{{ goal.endDate }}</td>
-					<td>{{ goal.goalKm }}</td>
-					<td>{{ goal.complete ? 'Completed' : 'In Progress' }}</td>
+					<td>{{ $index }}</td>
+					<td><a [routerLink]="goal.id">{{ goal.title }}</a></td>
+					<td>{{ goal.startDate | timestampToDate }}</td>
+					<td>{{ goal.endDate | timestampToDate }}</td>
+					<td>{{ goal.km }}</td>
+					<td>
+						{{
+							goal.complete 
+								? (
+									'Completed'
+								)  
+								: {{
+
+									`<span class="flex w-3 h-3 me-3 bg-green-500 rounded-full"></span> +  'In Progress'`
+								}}
+								
+						}}
+					</td>
 				</tr>
 			} @empty {
 				<tr>

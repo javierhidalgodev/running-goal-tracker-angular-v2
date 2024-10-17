@@ -1,13 +1,12 @@
 :host {
-	@apply
-		w-full
+	@apply block max-w-[800px] mx-auto
 }
 
 th { @apply py-2 }
 td { @apply py-4 }
 
-tr td:nth-child(2) a {
-		@apply font-bold text-white hover:text-green-500
+tr td:nth-child(2) {
+	@apply font-bold text-white
 }
 
 tr:not(:last-child) {

@@ -1,0 +1,79 @@
+<section class="p-4 flex flex-col gap-4">
+	<a class="w-fit px-4 py-2 text-sm font-semibold bg-green-600 hover:bg-green-700 rounded-md" routerLink="/goals">GOALS</a>
+	@if (goal) {
+	<div>
+		<small class="text-neutral-400">Title</small>
+		<h1 class="text-2xl font-bold">{{ goal.title }}</h1>
+	</div>
+
+	@if (goal.description) {
+	<div>
+		<small class="text-neutral-400">Description</small>
+		<p>{{ goal.description }}</p>
+	</div>
+	}
+
+	<div class="flex items-center gap-4">
+		<div>
+			<small class="text-neutral-400">Start Date</small>
+			<p>{{ goal.startDate | timestampToDate }}</p>
+		</div>
+		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-badge-right-filled" width="32"
+			height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round"
+			stroke-linejoin="round">
+			<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+			<path
+				d="M7 6l-.112 .006a1 1 0 0 0 -.669 1.619l3.501 4.375l-3.5 4.375a1 1 0 0 0 .78 1.625h6a1 1 0 0 0 .78 -.375l4 -5a1 1 0 0 0 0 -1.25l-4 -5a1 1 0 0 0 -.78 -.375h-6z"
+				stroke-width="0" fill="currentColor" />
+		</svg>
+		<div>
+			<small class="text-neutral-400">End Date</small>
+			<p>{{ goal.endDate | timestampToDate }}</p>
+		</div>
+	</div>
+
+	<div class="flex items-center gap-4">
+		<div>
+			<small class="text-neutral-400">Goal</small>
+			<p>{{ goal.km }}km</p>
+		</div>
+		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-run" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+			<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+			<path d="M13 4m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+			<path d="M4 17l5 1l.75 -1.5" />
+			<path d="M15 21l0 -4l-4 -3l1 -6" />
+			<path d="M7 12l0 -3l5 -1l3 3l3 1" />
+		  </svg>
+		<div>
+			<small class="text-neutral-400">Covered</small>
+			<p>{{ goal.km }}</p>
+		</div>
+	</div>
+	<div class="flex flex-col gap-4">
+		<small class="text-neutral-400">Activities</small>
+		<table class="w-full text-neutral-300">
+			<thead class="bg-neutral-600">
+				<th>#</th>
+				<th>DATE</th>
+				<th>KM</th>
+			</thead>
+			<tbody class="bg-neutral-700">
+				<!-- El track se usa para tener un control del renderizado sobre los elementos más efectivo -->
+				<!-- @for (goal of goals(); track goal.id; let index = $index) { -->
+					<tr>
+						<td>--</td>
+						<td>{{ goal.startDate | timestampToDate }}</td>
+						<td>{{ goal.km }}</td>
+					</tr>
+				<!-- } @empty { -->
+					<!-- <tr> -->
+						<!-- <td colspan="6" class="text-neutral-500 font-bold !text-center">No goals yet</td> -->
+					<!-- </tr> -->
+				<!-- } -->
+			</tbody>
+		</table>
+	</div>
+	} @else {
+
+	}
+</section>

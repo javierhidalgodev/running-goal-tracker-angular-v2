@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { addDoc, collection, collectionData, Firestore, Timestamp } from '@angular/fire/firestore';
+import { addDoc, collection, collectionData, doc, Firestore, getDoc, Timestamp } from '@angular/fire/firestore';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 
 export interface Goal {
@@ -9,7 +9,7 @@ export interface Goal {
   description: string,
   startDate: Timestamp,
   endDate: Timestamp,
-  goalKm: number,
+  km: number,
   registrationDate: Timestamp,
   complete: boolean
 }
@@ -32,6 +32,11 @@ export class GoalService {
 
   createGoal(goal: GoalCreate) {
     return addDoc(this._goalCollection, goal)
+  }
+
+  getGoalById(goalId: string) {
+    const docRef = doc(this._goalCollection, goalId)
+    return getDoc(docRef)
   }
 
   /**
