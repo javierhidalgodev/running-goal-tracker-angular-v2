@@ -9,30 +9,21 @@
 			<th>STATUS</th>
 		</thead>
 		<tbody class="bg-neutral-700">
-			<tr>
-				<td>1</td>
-				<td>2400KM</td>
-				<td>01/01/2024</td>
-				<td>31/12/2024</td>
-				<td>1901</td>
-				<td>In Progress</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>2400KM</td>
-				<td>01/01/2024</td>
-				<td>31/12/2024</td>
-				<td>1901</td>
-				<td>In Progress</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>2400KM</td>
-				<td>01/01/2024</td>
-				<td>31/12/2024</td>
-				<td>1901</td>
-				<td>In Progress</td>
-			</tr>
+			<!-- El track se usa para tener un control del renderizado sobre los elementos más efectivo -->
+			@for (goal of goals(); track goal.id) {
+				<tr>
+					<td>{{ goal.id }}</td>
+					<td>{{ goal.title }}</td>
+					<td>{{ goal.startDate }}</td>
+					<td>{{ goal.endDate }}</td>
+					<td>{{ goal.goalKm }}</td>
+					<td>{{ goal.complete ? 'Completed' : 'In Progress' }}</td>
+				</tr>
+			} @empty {
+				<tr>
+					<td colspan="6" class="text-neutral-500 font-bold !text-center">No goals yet</td>
+				</tr>
+			}
 		</tbody>
 	</table>
 </div>

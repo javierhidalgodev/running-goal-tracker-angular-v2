@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, effect, input } from '@angular/core';
+import { Goal } from 'app/services/goal.service';
 
 @Component({
   selector: 'app-goal-table',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrl: './goal-table.component.scss'
 })
 export class GoalTableComponent {
+  goals = input.required<Goal[]>()
 
+  constructor() {
+    effect(() => {
+      console.log(this.goals())
+    })
+  }
 }

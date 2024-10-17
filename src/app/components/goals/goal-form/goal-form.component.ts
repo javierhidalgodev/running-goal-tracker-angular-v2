@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { Timestamp } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { FormFieldName, invalidDate, invalidDateValidator, isLonger, isRequired, isShorter, minValidator } from '@utils/validators';
+import { Goal, GoalCreate, GoalForm, GoalService } from 'app/services/goal.service';
 
 @Component({
   selector: 'app-goal-form',
@@ -30,9 +33,12 @@ export class GoalFormComponent {
       Validators.min(1)
     ])]
   })
+  loadingSignal = signal(false)
 
   constructor(
-    private _fb: FormBuilder
+    private _fb: FormBuilder,
+    private _goalService: GoalService,
+    private _router: Router,
   ) {
     // console.log('goal-form prepared')
   }
@@ -57,7 +63,34 @@ export class GoalFormComponent {
     return invalidDate(field, this.goalForm)
   }
 
-  submitGoalForm() {
-    console.log(this.goalForm.value)
+  async submitGoalForm() {
+    // console.log(this.goalForm.value)
+
+    if(this.goalForm.valid) {
+      this.loadingSignal.set(true)
+
+      const formValue: GoalForm = {
+        ...this.goalForm.value,
+        startDate: Timestamp.fromDate(new Date(this.goalForm.get('startDate')!.value)),
+        endDate: Timestamp.fromDate(new Date(this.goalForm.get('endDate')!.value))
+      }
+
+
+      try {
+        const newGoalCreate: GoalCreate = {
+          ...formValue,
+          registrationDate: Timestamp.now(),
+          complete: false
+        }
+
+        const res = await this._goalService.createGoal(newGoalCreate)
+        // console.log(res)
+        // this._router.navigate(['/goals'])
+      } catch (error) {
+        console.error(error)
+      } finally {
+        this.loadingSignal.set(false)
+      }
+    }
   }
 }
