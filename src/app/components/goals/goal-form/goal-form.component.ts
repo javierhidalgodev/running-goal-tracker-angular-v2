@@ -3,7 +3,8 @@ import { Timestamp } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormFieldName, invalidDate, invalidDateValidator, isLonger, isRequired, isShorter, minValidator } from '@utils/validators';
-import { Goal, GoalCreate, GoalForm, GoalService } from 'app/services/goal.service';
+import { AuthService } from 'app/services/auth.service';
+import { GoalCreate, GoalForm, GoalService } from 'app/services/goal.service';
 
 @Component({
   selector: 'app-goal-form',
@@ -38,7 +39,6 @@ export class GoalFormComponent {
   constructor(
     private _fb: FormBuilder,
     private _goalService: GoalService,
-    private _router: Router,
   ) {
     // console.log('goal-form prepared')
   }

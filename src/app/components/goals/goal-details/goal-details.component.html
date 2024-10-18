@@ -46,7 +46,7 @@
 		  </svg>
 		<div>
 			<small class="text-neutral-400">Covered</small>
-			<p>{{ goal.km }}</p>
+			<p>{{ goalTotal() }}km</p>
 		</div>
 	</div>
 	<div class="flex flex-col gap-4">
@@ -59,17 +59,17 @@
 			</thead>
 			<tbody class="bg-neutral-700">
 				<!-- El track se usa para tener un control del renderizado sobre los elementos más efectivo -->
-				<!-- @for (goal of goals(); track goal.id; let index = $index) { -->
+				@for (activity of activities; track activity.id; let index = $index) {
 					<tr>
-						<td>--</td>
-						<td>{{ goal.startDate | timestampToDate }}</td>
-						<td>{{ goal.km }}</td>
+						<td>{{ index  }}</td>
+						<td>{{ activity.runDate | timestampToDate }}</td>
+						<td>{{ activity.km }}</td>
 					</tr>
-				<!-- } @empty { -->
-					<!-- <tr> -->
-						<!-- <td colspan="6" class="text-neutral-500 font-bold !text-center">No goals yet</td> -->
-					<!-- </tr> -->
-				<!-- } -->
+				} @empty {
+					<tr>
+						<td colspan="6" class="text-neutral-500 font-bold !text-center">No goals yet</td>
+					</tr>
+				}
 			</tbody>
 		</table>
 	</div>

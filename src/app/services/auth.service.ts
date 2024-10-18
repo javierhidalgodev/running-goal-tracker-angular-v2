@@ -16,6 +16,10 @@ export class AuthService {
     return authState(this._auth)
   }
 
+  getCurrentUser() {
+    return this._auth.currentUser
+  }
+
   singIn(user: UserDataLogin) {
     return signInWithEmailAndPassword(
       this._auth,

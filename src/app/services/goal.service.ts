@@ -12,7 +12,8 @@ export interface Goal {
   endDate: Timestamp,
   km: number,
   registrationDate: Timestamp,
-  complete: boolean
+  complete: boolean,
+  userId: string
 }
 export type GoalCreate = Omit<Goal, 'id'>
 export type GoalForm = Omit<GoalCreate, 'registrationDate' | 'complete'>
@@ -20,30 +21,30 @@ export type GoalForm = Omit<GoalCreate, 'registrationDate' | 'complete'>
 export interface Activity {
   id: string,
   goalId: string,
-  date: Timestamp,
+  runDate: Timestamp,
   km: number,
   registrationDate: Timestamp
 }
 export type ActivityCreate = Omit<Activity, 'id'>
 export type ActivityForm = Omit<ActivityCreate, 'goalId' | 'registrationDate'>
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class GoalService {
   private _goalCollection = collection(this._fireStore, 'goals')
   private _activityCollection = collection(this._fireStore, 'activities')
 
   isLoading = signal<boolean>(true)
 
-  
   constructor(
     private _fireStore: Firestore,
     private _authService: AuthService
   ) { }
 
   createGoal(goal: GoalCreate) {
-    return addDoc(this._goalCollection, goal)
+    return addDoc(this._goalCollection, {
+      ...goal,
+      userId: this._authService.getCurrentUser()?.uid
+    })
   }
 
   getGoalById(goalId: string) {
@@ -59,7 +60,7 @@ export class GoalService {
    * que necesiten esta data.
    */
   getGoals = toSignal(
-    (collectionData(this._goalCollection, { idField: 'id' }) as Observable<Goal[]>).pipe(
+    (collectionData(query(this._goalCollection, where('userId', '==', this._authService.getCurrentUser()?.uid)), { idField: 'id' }) as Observable<Goal[]>).pipe(
       tap(() => {
         this.isLoading.set(false)
       }
@@ -82,9 +83,6 @@ export class GoalService {
   getActivities(goalId: string) {
     const activitiesQuery = query(this._activityCollection, where('goalId', '==', goalId))
 
-    return toSignal(
-      (collectionData(activitiesQuery, { idField: 'id' }) as Observable<Activity[]>), {
-      initialValue: []
-    })
+    return collectionData(activitiesQuery, { idField: 'id' }) as Observable<Activity[]>
   }
 }

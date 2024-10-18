@@ -1,4 +1,5 @@
 import { Component, effect, input, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Activity, Goal, GoalService } from 'app/services/goal.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { Activity, Goal, GoalService } from 'app/services/goal.service';
 export class GoalDetailsComponent {
   idTask = input.required<string>()
   goal: Goal | null = null
-  activities = signal<Activity[]>([])
+  activities: Activity[] = []
 
   constructor(
     private _goalService: GoalService
@@ -19,10 +20,9 @@ export class GoalDetailsComponent {
 
       const goalId = this.idTask()
 
-      if(goalId) {
-        this.getGoal(goalId).then(() =>
-          this.loadActivities(goalId)
-        )
+      if (goalId) {
+        this.getGoal(goalId)
+        this.getActivities(goalId)
       }
     })
   }
@@ -30,13 +30,16 @@ export class GoalDetailsComponent {
   async getGoal(goalId: string) {
     const goalSnapshot = await this._goalService.getGoalById(goalId)
 
-    if(!goalSnapshot.exists()) return;
+    if (!goalSnapshot.exists()) return;
 
     this.goal = goalSnapshot.data() as Goal
   }
 
-  loadActivities(goalId: string) {
-    const activities = this._goalService.getActivities(goalId)()
-    this.activities.set(activities)
+  getActivities(goalId: string) {
+    this._goalService.getActivities(goalId).subscribe(value => this.activities = value)
+  }
+
+  goalTotal() {
+    return this.activities.reduce((prev, curr) => prev + curr.km, 0)
   }
 }
