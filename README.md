@@ -79,3 +79,6 @@ Desde la página del perfil, se podrá borrar el mismo.
   - [x] Componente de formulario.
   - [ ] Utilizar el servicio de goal o crear uno específico.
   - [ ] Lógica.
+
+- [ ] Sistema de notificaciones.
+- [ ] Mejora del navbar (UI)

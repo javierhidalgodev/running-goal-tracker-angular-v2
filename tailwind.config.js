@@ -4,11 +4,7 @@ module.exports = {
     "./src/**/*.{html,ts}",
   ],
   theme: {
-    extend: {
-      fontFamily: {
-        'body': ['"Arial"']
-      }
-    },
+    extend: {},
   },
   plugins: [],
 }

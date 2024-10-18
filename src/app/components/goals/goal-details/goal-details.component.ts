@@ -1,5 +1,5 @@
-import { Component, effect, input } from '@angular/core';
-import { Goal, GoalService } from 'app/services/goal.service';
+import { Component, effect, input, signal } from '@angular/core';
+import { Activity, Goal, GoalService } from 'app/services/goal.service';
 
 @Component({
   selector: 'app-goal-details',
@@ -9,6 +9,7 @@ import { Goal, GoalService } from 'app/services/goal.service';
 export class GoalDetailsComponent {
   idTask = input.required<string>()
   goal: Goal | null = null
+  activities = signal<Activity[]>([])
 
   constructor(
     private _goalService: GoalService
@@ -19,7 +20,9 @@ export class GoalDetailsComponent {
       const goalId = this.idTask()
 
       if(goalId) {
-        this.getGoal(goalId)
+        this.getGoal(goalId).then(() =>
+          this.loadActivities(goalId)
+        )
       }
     })
   }
@@ -30,5 +33,10 @@ export class GoalDetailsComponent {
     if(!goalSnapshot.exists()) return;
 
     this.goal = goalSnapshot.data() as Goal
+  }
+
+  loadActivities(goalId: string) {
+    const activities = this._goalService.getActivities(goalId)()
+    this.activities.set(activities)
   }
 }

@@ -1,8 +1,9 @@
-import { Component, signal } from '@angular/core';
+import { Component, effect, input, signal } from '@angular/core';
+import { Timestamp } from '@angular/fire/firestore';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { invalidDateValidator, FormFieldName, isRequired, minValidator, invalidDate } from '@utils/validators';
-import { GoalService } from 'app/services/goal.service';
+import { ActivityCreate, ActivityForm, GoalService } from 'app/services/goal.service';
 
 @Component({
   selector: 'app-activity-form',
@@ -21,13 +22,16 @@ export class ActivityFormComponent {
     ])]
   })
   loadingSignal = signal(false)
+  idTask = input.required<string>()
 
   constructor(
     private _fb: FormBuilder,
     private _goalService: GoalService,
     private _router: Router,
   ) {
-    // console.log('goal-form prepared')
+    effect(() => {
+      console.log(this.idTask())
+    })
   }
 
   isRequired(field: FormFieldName) {
@@ -43,33 +47,32 @@ export class ActivityFormComponent {
   }
 
   async submitActivityForm() {
-    console.log(this.activityForm.value)
+    // console.log(this.activityForm.value)
 
-  //   if(this.activityForm.valid) {
-  //     this.loadingSignal.set(true)
+    if(this.activityForm.valid) {
+      this.loadingSignal.set(true)
 
-  //     const formValue: activityForm = {
-  //       ...this.activityForm.value,
-  //       startDate: Timestamp.fromDate(new Date(this.activityForm.get('startDate')!.value)),
-  //       endDate: Timestamp.fromDate(new Date(this.activityForm.get('endDate')!.value))
-  //     }
+      const formValue: ActivityForm = {
+        ...this.activityForm.value,
+        runDate: Timestamp.fromDate(new Date(this.activityForm.get('runDate')!.value))
+      }
+      
+      console.log(formValue)
+      try {
+        const newActivityCreate: ActivityCreate = {
+          ...formValue,
+          registrationDate: Timestamp.now(),
+          goalId: this.idTask()
+        }
 
-
-  //     try {
-  //       const newGoalCreate: GoalCreate = {
-  //         ...formValue,
-  //         registrationDate: Timestamp.now(),
-  //         complete: false
-  //       }
-
-  //       const res = await this._goalService.createGoal(newGoalCreate)
-  //       // console.log(res)
-  //       // this._router.navigate(['/goals'])
-  //     } catch (error) {
-  //       console.error(error)
-  //     } finally {
-  //       this.loadingSignal.set(false)
-  //     }
-  //   }
+        const res = await this._goalService.createActivityToGoal(newActivityCreate)
+        // console.log(res)
+        this._router.navigate(['/goals', this.idTask()])
+      } catch (error) {
+        console.error(error)
+      } finally {
+        this.loadingSignal.set(false)
+      }
+    }
   }
 }
