@@ -9,7 +9,8 @@ import { GoalCreate, GoalForm, GoalService } from 'app/services/goal.service';
 @Component({
   selector: 'app-goal-form',
   templateUrl: './goal-form.component.html',
-  styleUrl: './goal-form.component.scss'
+  styleUrl: './goal-form.component.scss',
+  providers: [GoalService]
 })
 export class GoalFormComponent {
   goalForm: FormGroup = this._fb.group({

@@ -31,7 +31,7 @@ export const minValidator = (form: FormGroup) => {
 	return control && control.touched && control.hasError('min')
 }
 
-export const invalidDate = (field: 'startDate' | 'endDate', form: FormGroup) => {
+export const invalidDate = (field: 'startDate' | 'endDate' | 'runDate', form: FormGroup) => {
 	const control = form.get(field)
 
 	return control && control.touched && !control.pristine && control.hasError('invalidDate')

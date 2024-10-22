@@ -46,6 +46,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "namedChunks": true,
             "outputPath": "dist/running-goal-tracker-v2",
             "index": "src/index.html",
             "browser": "src/main.ts",
@@ -67,6 +68,7 @@
           },
           "configurations": {
             "production": {
+              "namedChunks": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -82,6 +84,7 @@
               "outputHashing": "all"
             },
             "development": {
+              "namedChunks": true,
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true,

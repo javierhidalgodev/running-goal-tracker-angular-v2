@@ -8,7 +8,8 @@ import { ActivityCreate, ActivityForm, GoalService } from 'app/services/goal.ser
 @Component({
   selector: 'app-activity-form',
   templateUrl: './activity-form.component.html',
-  styleUrl: './activity-form.component.scss'
+  styleUrl: './activity-form.component.scss',
+  providers: [GoalService]
 })
 export class ActivityFormComponent {
   activityForm: FormGroup = this._fb.group({
@@ -21,6 +22,7 @@ export class ActivityFormComponent {
       Validators.min(1)
     ])]
   })
+
   loadingSignal = signal(false)
   idTask = input.required<string>()
 
@@ -42,7 +44,7 @@ export class ActivityFormComponent {
     return minValidator(this.activityForm)
   }
 
-  invalidDate(field: 'startDate' | 'endDate') {
+  invalidDate(field: 'startDate' | 'endDate' | 'runDate') {
     return invalidDate(field, this.activityForm)
   }
 

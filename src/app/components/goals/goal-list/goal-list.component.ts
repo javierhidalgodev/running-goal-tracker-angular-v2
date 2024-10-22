@@ -13,5 +13,5 @@ export class GoalListComponent {
 
   constructor(
     private _goalService: GoalService
-  ) { }
+  ) {}
 }

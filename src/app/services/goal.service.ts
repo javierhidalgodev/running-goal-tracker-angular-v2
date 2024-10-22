@@ -1,8 +1,12 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, OnDestroy, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { addDoc, collection, collectionData, doc, Firestore, getDoc, query, Timestamp, where } from '@angular/fire/firestore';
+import { addDoc, collection, collectionData, deleteDoc, doc, docData, Firestore, getDoc, query, Timestamp, where } from '@angular/fire/firestore';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import { AuthService } from './auth.service';
+
+import GoalsModule from '@components/goals/goals.module';
+import ActivityModule from '@components/activity/activity.module';
+import { get } from '@angular/fire/database';
 
 export interface Goal {
   id: string,
@@ -38,7 +42,8 @@ export class GoalService {
   constructor(
     private _fireStore: Firestore,
     private _authService: AuthService
-  ) { }
+  ) {
+  }
 
   createGoal(goal: GoalCreate) {
     return addDoc(this._goalCollection, {
@@ -47,9 +52,19 @@ export class GoalService {
     })
   }
 
+  deleteGoal(goalId: string) {
+    const docRef = doc(this._goalCollection, goalId)
+    return deleteDoc(docRef)
+  }
+  
   getGoalById(goalId: string) {
     const docRef = doc(this._goalCollection, goalId)
     return getDoc(docRef)
+  }
+  
+  getGoal(goalId: string) {
+    const docRef = doc(this._goalCollection, goalId)
+    return docData(docRef) as Observable<Goal>
   }
 
   /**

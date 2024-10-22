@@ -1,0 +1,23 @@
+<table class="w-full text-neutral-300">
+    <thead class="bg-neutral-600">
+      <th>#</th>
+      <th>DATE</th>
+      <th>KM</th>
+    </thead>
+    <tbody class="bg-neutral-700">
+      <!-- El track se usa para tener un control del renderizado sobre los elementos más efectivo -->
+      @for (activity of activities(); track activity.id; let index = $index) {
+      <tr>
+        <td>{{ index }}</td>
+        <td>{{ activity.runDate | timestampToDate }}</td>
+        <td>{{ activity.km }}</td>
+      </tr>
+      } @empty {
+      <tr>
+        <td colspan="6" class="text-neutral-500 font-bold !text-center">
+          No goals yet
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
