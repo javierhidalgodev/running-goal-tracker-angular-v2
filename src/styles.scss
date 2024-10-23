@@ -14,8 +14,9 @@ body {
 	color: aliceblue;
 
 	@apply
+		relative
 		bg-neutral-800
-		flex
 		w-full
 		h-dvh
+		place-content-center
 }

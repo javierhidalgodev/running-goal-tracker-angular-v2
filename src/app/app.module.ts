@@ -7,10 +7,13 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { environment } from '../environments/environment.development';
+import { ToasterComponent } from './components/toaster/toaster.component';
+import { CdkPortalOutlet } from '@angular/cdk/portal';
+import { NotificationComponent } from './components/notification/notification.component';
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule],
+  declarations: [AppComponent, ToasterComponent, NotificationComponent],
+  imports: [BrowserModule, AppRoutingModule, CdkPortalOutlet],
   providers: [
     provideFirebaseApp(() =>
       initializeApp(environment.firebase)

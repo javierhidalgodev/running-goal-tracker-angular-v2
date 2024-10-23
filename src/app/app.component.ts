@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { ToasterComponent } from '@components/toaster/toaster.component';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'running-goal-tracker-v2';
+  @ViewChild(ToasterComponent) toaster!: ToasterComponent
+
+  showToaster() {
+    this.toaster.showNotification('El mensajito')
+  }
 }
