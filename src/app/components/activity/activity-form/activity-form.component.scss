@@ -1,5 +1,5 @@
 :host {
-    @apply block max-w-[450px] mx-auto
+    @apply block max-w-[450px] mx-auto flex flex-col gap-2
 }
 
 input {

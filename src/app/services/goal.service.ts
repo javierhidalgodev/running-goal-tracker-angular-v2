@@ -1,12 +1,8 @@
 import { Injectable, OnDestroy, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { addDoc, collection, collectionData, deleteDoc, doc, docData, Firestore, getDoc, query, Timestamp, where } from '@angular/fire/firestore';
+import { addDoc, collection, collectionData, deleteDoc, doc, docData, Firestore, getDoc, query, Timestamp, updateDoc, where } from '@angular/fire/firestore';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import { AuthService } from './auth.service';
-
-import GoalsModule from '@components/goals/goals.module';
-import ActivityModule from '@components/activity/activity.module';
-import { get } from '@angular/fire/database';
 
 export interface Goal {
   id: string,
@@ -64,7 +60,10 @@ export class GoalService {
   
   getGoal(goalId: string) {
     const docRef = doc(this._goalCollection, goalId)
-    return docData(docRef) as Observable<Goal>
+    const docData = getDoc(docRef)
+
+    // return docData(docRef) as Observable<Goal>
+    return docData
   }
 
   /**
@@ -99,5 +98,10 @@ export class GoalService {
     const activitiesQuery = query(this._activityCollection, where('goalId', '==', goalId))
 
     return collectionData(activitiesQuery, { idField: 'id' }) as Observable<Activity[]>
+  }
+
+  updateGoal(goalId: string) {
+    const docRef = doc(this._goalCollection, goalId)
+    return updateDoc(docRef, { complete: true })
   }
 }

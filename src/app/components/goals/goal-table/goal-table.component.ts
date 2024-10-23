@@ -1,5 +1,6 @@
 import { Component, effect, input } from '@angular/core';
-import { Goal } from 'app/services/goal.service';
+import { Goal, GoalService } from 'app/services/goal.service';
+import { catchError, map, switchMap, tap, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-goal-table',
@@ -9,7 +10,9 @@ import { Goal } from 'app/services/goal.service';
 export class GoalTableComponent {
   goals = input.required<Goal[]>()
 
-  constructor() {
+  constructor(
+    private _goalService: GoalService
+  ) {
     effect(() => {
       console.log(this.goals())
     })
