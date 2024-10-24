@@ -8,4 +8,5 @@ import { Component, Input, input } from '@angular/core';
 export class NotificationComponent {
   // message = input.required<string>()
   @Input() message = ''
+  @Input() style: '' | 'success' | 'error' | 'info' = ''
 }

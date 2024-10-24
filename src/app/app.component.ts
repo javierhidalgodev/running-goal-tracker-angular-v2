@@ -7,9 +7,4 @@ import { ToasterComponent } from '@components/toaster/toaster.component';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  @ViewChild(ToasterComponent) toaster!: ToasterComponent
-
-  showToaster() {
-    this.toaster.showNotification('El mensajito')
-  }
 }

@@ -13,7 +13,7 @@ import { AuthService } from 'app/services/auth.service';
       <button class="w-fit py-2 px-6 mr-0  text-sm font-semibold bg-green-600 hover:bg-green-700 rounded-md" (click)="logout()">Logout</button>
     </nav>
   </header>
-  <section class="max-w-[1200px] w-full h-full mx-auto p-10">
+  <section class="max-w-[1200px] w-full mx-auto p-10">
     <router-outlet />
   </section>
 `,

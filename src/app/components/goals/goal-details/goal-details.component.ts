@@ -1,6 +1,8 @@
 import { Component, effect, Injector, input, OnInit, Signal, signal } from '@angular/core';
 import { Router } from '@angular/router';
+import { DialogService } from 'app/services/dialog.service';
 import { Activity, Goal, GoalService } from 'app/services/goal.service';
+import { ToasterService } from 'app/services/toaster.service';
 
 @Component({
   selector: 'app-goal-details',
@@ -13,10 +15,12 @@ export class GoalDetailsComponent {
   goal = signal<Goal | null>(null)
   activities = signal<Activity[]>([])
   isLoading = this._goalService.isLoading
-  
+
   constructor(
     private _router: Router,
     private _goalService: GoalService,
+    private _toasterService: ToasterService,
+    private _dialogService: DialogService
   ) {
     effect(() => {
       if (this.idTask()) {
@@ -57,11 +61,16 @@ export class GoalDetailsComponent {
   }
 
   async deleteGoal() {
-    const confirmDelete = confirm('Are you sure?')
-
-    confirmDelete
-      && await this._goalService.deleteGoal(this.idTask())
-      this._router.navigate(['/goals'])
+    const confirmRes = await this._dialogService.openDialog()
+    if (confirmRes) {
+      try {
+        await this._goalService.deleteGoal(this.idTask())
+        this._toasterService.showNotification('Goal deleted!', 'info')
+        this._router.navigate(['/goals'])
+      } catch (error) {
+        this._toasterService.showNotification('Something went wrong!', 'error')
+      }
+    }
   }
 
   navigateToActivityForm() {

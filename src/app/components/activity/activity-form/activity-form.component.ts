@@ -4,6 +4,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { invalidDateValidator, FormFieldName, isRequired, minValidator, invalidDate } from '@utils/validators';
 import { ActivityCreate, ActivityForm, Goal, GoalService } from 'app/services/goal.service';
+import { ToasterService } from 'app/services/toaster.service';
 import { map, switchMap } from 'rxjs';
 
 @Component({
@@ -34,7 +35,7 @@ export class ActivityFormComponent {
     private _fb: FormBuilder,
     private _goalService: GoalService,
     private _router: Router,
-    private _route: ActivatedRoute,
+    private _toasterService: ToasterService
   ) {
     effect(() => {
       const goalId = this.idTask()
@@ -92,8 +93,10 @@ export class ActivityFormComponent {
         // console.log(res)
         this.updateGoal()
 
+        this._toasterService.showNotification('Goal added succesfully!', 'success')
         this._router.navigate(['/goals', this.idTask()])
-      } catch (error) {
+        } catch (error) {
+        this._toasterService.showNotification('Something went wrong!', 'error')
         console.error(error)
       } finally {
         this.savingSignal.set(false)
@@ -106,7 +109,7 @@ export class ActivityFormComponent {
       map(activities => {
         const total = activities.reduce((acc, curr) => acc + curr.km, 0)
 
-        if (total > this.goal()!.km) {
+        if (total >= this.goal()!.km) {
           try {
             this._goalService.updateGoal(this.idTask())
           } catch (error) {

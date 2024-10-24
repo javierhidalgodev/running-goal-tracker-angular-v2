@@ -8,7 +8,7 @@ export class FormatDateToInputMinPipe implements PipeTransform {
 
   transform(date: Timestamp,): unknown {
     const toDate = date.toDate()
-    return `${toDate.getFullYear()}-${toDate.getMonth() + 1}-${toDate.getDate()}`;
+    return `${toDate.getFullYear()}-${(toDate.getMonth() + 1).toString().padStart(2, '0')}-${toDate.getDate().toString().padStart(2, '0')}`;
   }
 
 }

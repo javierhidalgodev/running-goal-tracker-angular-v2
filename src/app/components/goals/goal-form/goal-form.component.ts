@@ -1,10 +1,10 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ViewChild } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormFieldName, invalidDate, invalidDateValidator, isLonger, isRequired, isShorter, minValidator } from '@utils/validators';
-import { AuthService } from 'app/services/auth.service';
 import { GoalCreate, GoalForm, GoalService } from 'app/services/goal.service';
+import { ToasterService } from 'app/services/toaster.service';
 
 @Component({
   selector: 'app-goal-form',
@@ -13,6 +13,7 @@ import { GoalCreate, GoalForm, GoalService } from 'app/services/goal.service';
   providers: [GoalService]
 })
 export class GoalFormComponent {
+
   goalForm: FormGroup = this._fb.group({
     title: ['', Validators.compose([
       Validators.required,
@@ -40,6 +41,8 @@ export class GoalFormComponent {
   constructor(
     private _fb: FormBuilder,
     private _goalService: GoalService,
+    private _toasterService: ToasterService,
+    private _router: Router
   ) {
     // console.log('goal-form prepared')
   }
@@ -85,9 +88,10 @@ export class GoalFormComponent {
         }
 
         const res = await this._goalService.createGoal(newGoalCreate)
-        // console.log(res)
-        // this._router.navigate(['/goals'])
-      } catch (error) {
+        this._toasterService.showNotification('Goal added succesfully!', 'success')
+        this._router.navigate(['/goals'])
+        } catch (error) {
+        this._toasterService.showNotification('Something went wrong!', 'error')
         console.error(error)
       } finally {
         this.loadingSignal.set(false)

@@ -10,9 +10,10 @@ import { environment } from '../environments/environment.development';
 import { ToasterComponent } from './components/toaster/toaster.component';
 import { CdkPortalOutlet } from '@angular/cdk/portal';
 import { NotificationComponent } from './components/notification/notification.component';
+import { DialogComponent } from './components/dialog/dialog.component';
 
 @NgModule({
-  declarations: [AppComponent, ToasterComponent, NotificationComponent],
+  declarations: [AppComponent, ToasterComponent, NotificationComponent, DialogComponent],
   imports: [BrowserModule, AppRoutingModule, CdkPortalOutlet],
   providers: [
     provideFirebaseApp(() =>

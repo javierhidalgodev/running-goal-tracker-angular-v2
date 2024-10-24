@@ -77,8 +77,10 @@ Desde la página del perfil, se podrá borrar el mismo.
 
 - [x] Módulo de `Activity form`.
   - [x] Componente de formulario.
-  - [ ] Utilizar el servicio de goal o crear uno específico.
-  - [ ] Lógica.
+  - [x] Utilizar el servicio de goal o crear uno específico.
+  - [x] Lógica. <span style="background-color: red; padding: 1px 3px; border-radius: 3px">Aún así habría que revisarlo</span>
 
-- [ ] Sistema de notificaciones.
+- [x] Corrección del posicionamiento de elemntos en la UI.
+- [ ] Sistema de notificaciones/toaster.
 - [ ] Mejora del navbar (UI)
+- [ ] Manejar errores de NO CONEXIÓN con Firestore.
