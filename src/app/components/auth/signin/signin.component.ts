@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { hasEmailError, isRequired } from '@utils/validators';
 import { AuthService } from 'app/services/auth.service';
+import { ToasterService } from 'app/services/toaster.service';
 
 @Component({
   selector: 'app-signin',
@@ -10,6 +11,8 @@ import { AuthService } from 'app/services/auth.service';
   styleUrl: './signin.component.scss',
 })
 export class SigninComponent {
+  isLoading = this._authService.isLoading
+
   signInForm: FormGroup = this._fb.group({
     email: ['', Validators.compose([
       Validators.required,
@@ -21,10 +24,11 @@ export class SigninComponent {
     ])]
   })
 
-  constructor (
+  constructor(
     private _fb: FormBuilder,
     private _authService: AuthService,
-    private _router: Router
+    private _router: Router,
+    private _toasterService: ToasterService
   ) { }
 
   isRequired(field: 'email' | 'password') {
@@ -36,16 +40,24 @@ export class SigninComponent {
   }
 
   async submit() {
-    if(this.signInForm.invalid) return
-    
+    if (this.signInForm.invalid) return
+
+    this.isLoading.set(true)
     const { email, password } = this.signInForm.value
-    if (!email || !password) return
-    
+
+    if (!email || !password) {
+      this.isLoading.set(false)
+      return
+    }
+
     try {
       await this._authService.singIn({ email, password })
       this._router.navigate(['goals'])
     } catch (error) {
-      console.error('Something went wrong during login process')
+      this._toasterService.showNotification('Invalid credentials', 'error')
+      // console.error('Something went wrong during login process')
+    } finally {
+      this.isLoading.set(false)
     }
   }
 }

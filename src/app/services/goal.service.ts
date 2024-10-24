@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { addDoc, collection, collectionData, deleteDoc, doc, docData, Firestore, getDoc, query, Timestamp, updateDoc, where } from '@angular/fire/firestore';
+import { addDoc, collection, collectionData, deleteDoc, doc, docData, Firestore, getDoc, orderBy, query, Timestamp, updateDoc, where } from '@angular/fire/firestore';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import { AuthService } from './auth.service';
 
@@ -95,7 +95,7 @@ export class GoalService {
   }
 
   getActivities(goalId: string) {
-    const activitiesQuery = query(this._activityCollection, where('goalId', '==', goalId))
+    const activitiesQuery = query(this._activityCollection, orderBy('runDate', 'desc'), where('goalId', '==', goalId))
 
     return collectionData(activitiesQuery, { idField: 'id' }) as Observable<Activity[]>
   }

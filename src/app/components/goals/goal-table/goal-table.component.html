@@ -20,11 +20,14 @@
 					<td>{{ goal.endDate | timestampToDate }}</td>
 					<td>{{ goal.km }}</td>
 					<td class="flex items-center">
-						@if (goal.complete) {
-							<span class="flex w-3 h-3 me-3 bg-green-500 rounded-full"></span> Complete
+						<span [ngClass]="['flex w-3 h-3 me-3 bg-green-500 rounded-full', goal.complete ? 'bg-green-500' : 'bg-yellow-600']"></span> 
+						{{ goal.complete ? 'Completed' : 'In Progress' }}
+
+						<!-- @if (goal.complete) {
+							<span class="flex w-3 h-3 me-3 bg-green-500 rounded-full"></span> Completed
 						} @else {
 							<span class="flex w-3 h-3 me-3 bg-yellow-600 rounded-full"></span>In Progress
-						}
+						} -->
 					</td>
 				</tr>
 			} @empty {

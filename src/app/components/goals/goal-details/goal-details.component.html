@@ -7,7 +7,7 @@
     @if (goal()) {
     <div>
       <small class="text-neutral-400">Title</small>
-      <h1 class="flex items-center gap-3 text-2xl font-bold">
+      <h1 class="flex items-center gap-3 text-2xl font-bold max-[400px]:flex-col max-[400px]:items-start max-[400px]:gap-1">
         {{ goal()?.title }}
         <span [ngClass]="[goal()?.complete ? 'bg-green-600' : 'bg-yellow-600', 'bg-green-600 text-xs font-medium me-2 px-2.5 py-0.5 rounded']">{{ goal()?.complete ? 'Completed' : 'In progress' }}</span>
       </h1>
@@ -20,12 +20,12 @@
     </div>
     }
 
-    <div class="flex items-center gap-4">
+    <div class="flex items-center gap-4 max-[400px]:flex-col max-[400px]:items-start">
       <div>
         <small class="text-neutral-400">Start Date</small>
         <p>{{ goal()!.startDate | timestampToDate }}</p>
       </div>
-      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-badge-right-filled" width="32"
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-badge-right-filled max-[400px]:hidden" width="32"
         height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round"
         stroke-linejoin="round">
         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -39,12 +39,12 @@
       </div>
     </div>
 
-    <div class="flex items-center gap-4">
+    <div class="flex items-center gap-4 max-[400px]:flex-col max-[400px]:items-start">
       <div>
         <small class="text-neutral-400">Goal</small>
         <p>{{ goal()?.km }}km</p>
       </div>
-      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-run" width="32" height="32"
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-run max-[400px]:hidden" width="32" height="32"
         viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round"
         stroke-linejoin="round">
         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -64,11 +64,11 @@
       <app-activity-table [goaldId]="idTask()" />
     </div>
 
-    <div class="actions flex justify-between">
-      <button class="w-fit px-4 py-2 font-semibold bg-green-600 hover:bg-green-700 rounded-md disabled:cursor-not-allowed disabled:bg-neutral-500 disabled:text-neutral-400" (click)="navigateToActivityForm()" [disabled]="goal()?.complete">
+    <div class="actions flex justify-between gap-2 max-[400px]:flex-col">
+      <button class="bg-green-600 hover:bg-green-700 disabled:cursor-not-allowed disabled:bg-neutral-500 disabled:text-neutral-400" (click)="navigateToActivityForm()" [disabled]="goal()?.complete">
         {{ this.goal()?.complete ? 'Completed' : 'Add activity' }}
       </button>
-      <button class="w-fit p-4 py-2 font-semibold bg-red-600 hover:bg-red-700 rounded-md" (click)="deleteGoal()">
+      <button class="bg-red-600 hover:bg-red-700" (click)="deleteGoal()">
         Delete
       </button>
     </div>

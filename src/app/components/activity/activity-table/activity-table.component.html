@@ -1,4 +1,5 @@
-<table class="w-full text-neutral-300">
+<div class="overflow-x-auto">
+  <table class="w-full text-neutral-300">
     <thead class="bg-neutral-600">
       <th>#</th>
       <th>DATE</th>
@@ -9,7 +10,7 @@
       @for (activity of activities(); track activity.id; let index = $index) {
       <tr>
         <td>{{ index }}</td>
-        <td>{{ activity.runDate | timestampToDate }}</td>
+        <td class="text-nowrap">{{ activity.runDate | timestampToDate }}</td>
         <td>{{ activity.km }}</td>
       </tr>
       } @empty {
@@ -21,3 +22,4 @@
       }
     </tbody>
   </table>
+</div>

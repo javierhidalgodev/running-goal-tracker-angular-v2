@@ -28,7 +28,7 @@ export const isLonger = (field: FormFieldName, form: FormGroup) => {
 export const minValidator = (form: FormGroup) => {
 	const control = form.get('km')
 
-	return control && control.touched && control.hasError('min')
+	return control && control.touched && !control.pristine && control.hasError('min')
 }
 
 export const invalidDate = (field: 'startDate' | 'endDate' | 'runDate', form: FormGroup) => {

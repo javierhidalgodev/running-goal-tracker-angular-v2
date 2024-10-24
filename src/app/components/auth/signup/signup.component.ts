@@ -3,6 +3,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { isRequired, hasEmailError } from '@utils/validators';
 import { AuthService } from 'app/services/auth.service';
+import { ToasterService } from 'app/services/toaster.service';
 
 @Component({
   selector: 'app-signup',
@@ -24,7 +25,8 @@ export class SignupComponent {
   constructor (
     private _fb: FormBuilder,
     private _authService: AuthService,
-    private _router: Router
+    private _router: Router,
+    private _toasterService: ToasterService
   ) { }
 
   isRequired(field: 'email' | 'password') {
@@ -43,8 +45,10 @@ export class SignupComponent {
     
     try {
       await this._authService.signUp({ email, password })
+      this._toasterService.showNotification('Account created successfully', 'success')
       this._router.navigate(['auth/sign-in'])
     } catch (error) {
+      this._toasterService.showNotification('This email address is already in use', 'error')
       console.error('Something went wrong during create an account process')
     }
   }

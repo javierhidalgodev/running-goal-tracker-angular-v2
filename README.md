@@ -52,9 +52,13 @@ Desde la página del perfil, se podrá borrar el mismo.
 - [x] Componente de `Sign In`.
   - [x] UI.
   - [x] Lógica.
+  - [x] Manejar inicio de sesión inválido.
+  - [x] Manejar validación de campos.
 - [x] Componente de `Sign Up`.
   - [x] UI.
   - [x] Lógica.
+  - [x] Manejar inicio de sesión inválido.
+  - [x] Manejar validación de campos.
 
 - [x] `Guard` privado y público.
   - [x] Configuración del `guard`.
@@ -94,9 +98,19 @@ Desde la página del perfil, se podrá borrar el mismo.
   - [x] Componente/UI.
   - [x] Lógica.
 
+- Mobile Responsive.
+  - [ ] Goal List.
+  - [ ] New Goal.
+  - [x] Goal Details.
+  - [ ] New Activity.
+  - [ ] Navbar.
+  - [ ] Sign In.
+  - [ ] Sign Up.
+
 ## Tareas generales:
+- [ ] Comprobar si las actividades de los objetivos se muestran en orden.
 - [x] Corrección del posicionamiento de elementos en la UI.
 - [ ] Mejora del navbar (UI)
 - [ ] Manejar errores de NO CONEXIÓN con Firestore.
 - [x] Corrección del campo "description" en la verificación.
-- [ ] Corrección del control de fechas. La entrada de una fecha de inicio condiciona la fecha de final y viceversa. Tiene una lógica un poco compleja. Habría que revisarla y simplificarla lo máximo posible.
+- [x] Corrección del control de fechas. La entrada de una fecha de inicio condiciona la fecha de final y viceversa. <span style="background-color: blue; padding: 1px 3px; border-radius: 3px">Tiene una lógica un poco compleja. Habría que revisarla y simplificarla lo máximo posible.</span>

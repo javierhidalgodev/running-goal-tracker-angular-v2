@@ -145,6 +145,6 @@ export class ActivityFormComponent {
   }
 
   navigate() {
-    this._router.navigate([history.back])
+    this._router.navigate([])
   }
 }
