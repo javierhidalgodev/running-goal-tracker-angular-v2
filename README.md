@@ -80,7 +80,23 @@ Desde la página del perfil, se podrá borrar el mismo.
   - [x] Utilizar el servicio de goal o crear uno específico.
   - [x] Lógica. <span style="background-color: red; padding: 1px 3px; border-radius: 3px">Aún así habría que revisarlo</span>
 
-- [x] Corrección del posicionamiento de elemntos en la UI.
-- [ ] Sistema de notificaciones/toaster.
+- [x] Sistema de notificaciones/toaster.
+  - [x] Servicio.
+  - [x] Componente/UI.
+  - [x] Implementación.
+
+- [x] Ventana de diálogo para acciones.
+  - [x] Servicio.
+  - [x] Componente/UI.
+  - [x] Implementación.
+
+- [x] Página de perfil.
+  - [x] Componente/UI.
+  - [x] Lógica.
+
+## Tareas generales:
+- [x] Corrección del posicionamiento de elementos en la UI.
 - [ ] Mejora del navbar (UI)
 - [ ] Manejar errores de NO CONEXIÓN con Firestore.
+- [x] Corrección del campo "description" en la verificación.
+- [ ] Corrección del control de fechas. La entrada de una fecha de inicio condiciona la fecha de final y viceversa. Tiene una lógica un poco compleja. Habría que revisarla y simplificarla lo máximo posible.

@@ -1,8 +1,8 @@
-import { Component, signal, ViewChild } from '@angular/core';
+import { Component, ElementRef, Renderer2, signal, ViewChild } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { FormFieldName, invalidDate, invalidDateValidator, isLonger, isRequired, isShorter, minValidator } from '@utils/validators';
+import { dateRangeValidator, FormFieldName, invalidDate, invalidDateValidator, isLonger, isRequired, isShorter, minValidator } from '@utils/validators';
 import { GoalCreate, GoalForm, GoalService } from 'app/services/goal.service';
 import { ToasterService } from 'app/services/toaster.service';
 
@@ -13,6 +13,8 @@ import { ToasterService } from 'app/services/toaster.service';
   providers: [GoalService]
 })
 export class GoalFormComponent {
+  @ViewChild('startDate') startDateElement!: ElementRef
+  @ViewChild('endDate') endDateElement!: ElementRef
 
   goalForm: FormGroup = this._fb.group({
     title: ['', Validators.compose([
@@ -39,6 +41,7 @@ export class GoalFormComponent {
   loadingSignal = signal(false)
 
   constructor(
+    private _renderer2: Renderer2,
     private _fb: FormBuilder,
     private _goalService: GoalService,
     private _toasterService: ToasterService,
@@ -67,6 +70,51 @@ export class GoalFormComponent {
     return invalidDate(field, this.goalForm)
   }
 
+  dateRangeViolation(field: 'startDate' | 'endDate') {
+    return dateRangeValidator(field, this.goalForm)
+  }
+
+  updateDateRange(field: 'startDate' | 'endDate') {
+    const control = this.goalForm.get(field)
+
+    if (control) {
+      // ? Parece que me lo da en el formato exacto necesario, no habría que transformarlo
+      const date = control.value
+
+      // const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${(date.getDate).toString().padStart(2, '0')}`
+
+      if (field === 'startDate') {
+        this._renderer2.setAttribute(this.endDateElement.nativeElement, 'min', date)
+
+        const endDateControl = this.goalForm.get('endDate')
+
+        if(endDateControl) {
+          if(new Date(endDateControl.value).getTime() < new Date(date).getTime()) {
+            control.setErrors({ 'dateRangeViolation': true })
+          } else {
+            endDateControl.setErrors(null)
+          }
+        }
+
+      } else {
+        this._renderer2.setAttribute(this.startDateElement.nativeElement, 'max', date)
+
+        const startDateControl = this.goalForm.get('startDate')
+
+        if(startDateControl) {
+          if(new Date(startDateControl.value).getTime() > new Date(date).getTime()) {
+            control.setErrors({ 'dateRangeViolation': true })
+          } else {
+            startDateControl. setErrors(null)
+          }
+        }
+      }
+
+
+    }
+
+  }
+
   async submitGoalForm() {
     // console.log(this.goalForm.value)
 
@@ -78,7 +126,6 @@ export class GoalFormComponent {
         startDate: Timestamp.fromDate(new Date(this.goalForm.get('startDate')!.value)),
         endDate: Timestamp.fromDate(new Date(this.goalForm.get('endDate')!.value))
       }
-
 
       try {
         const newGoalCreate: GoalCreate = {

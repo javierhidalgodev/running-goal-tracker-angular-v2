@@ -1,8 +1,8 @@
-import { Component, effect, input, signal } from '@angular/core';
+import { Component, effect, ElementRef, input, Renderer2, signal, ViewChild } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { invalidDateValidator, FormFieldName, isRequired, minValidator, invalidDate } from '@utils/validators';
+import { invalidDateValidator, FormFieldName, isRequired, minValidator, invalidDate, dateRangeValidator } from '@utils/validators';
 import { ActivityCreate, ActivityForm, Goal, GoalService } from 'app/services/goal.service';
 import { ToasterService } from 'app/services/toaster.service';
 import { map, switchMap } from 'rxjs';
@@ -14,6 +14,8 @@ import { map, switchMap } from 'rxjs';
   providers: [GoalService]
 })
 export class ActivityFormComponent {
+  @ViewChild('runDate') runDateRef!: ElementRef
+
   activityForm: FormGroup = this._fb.group({
     runDate: ['', Validators.compose([
       Validators.required,
@@ -32,6 +34,7 @@ export class ActivityFormComponent {
   savingSignal = signal(false)
 
   constructor(
+    private _renderer2: Renderer2,
     private _fb: FormBuilder,
     private _goalService: GoalService,
     private _router: Router,
@@ -70,6 +73,28 @@ export class ActivityFormComponent {
     return invalidDate(field, this.activityForm)
   }
 
+  dateRangeViolation(field: 'startDate' | 'endDate' | 'runDate') {
+    return dateRangeValidator(field, this.activityForm)
+  }
+
+  updateDateValidation() {
+    const runDateControl = this.activityForm.get('runDate')
+
+    if(runDateControl) {
+      const inputAtt: HTMLInputElement = this.runDateRef.nativeElement
+      const min = new Date(inputAtt.attributes.getNamedItem('min')!.value)
+      const max = new Date(inputAtt.attributes.getNamedItem('max')!.value)
+      const runDate = new Date(runDateControl.value)
+
+      // console.log(runDate < min, runDate > max)
+
+      if(runDate < min || runDate > max) {
+        console.log('error amigo')
+        runDateControl.setErrors({ 'dateRangeViolation': true })
+      }
+    }
+  }
+
   async submitActivityForm() {
     // console.log(this.activityForm.value)
 
@@ -81,7 +106,6 @@ export class ActivityFormComponent {
         runDate: Timestamp.fromDate(new Date(this.activityForm.get('runDate')!.value))
       }
 
-      console.log(formValue)
       try {
         const newActivityCreate: ActivityCreate = {
           ...formValue,
@@ -115,13 +139,9 @@ export class ActivityFormComponent {
           } catch (error) {
             console.log(error)
           }
-        } else {
-          console.log('NO completado')
         }
       })
     ).subscribe()
-
-
   }
 
   navigate() {

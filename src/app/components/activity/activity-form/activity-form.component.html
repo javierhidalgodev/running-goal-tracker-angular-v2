@@ -11,9 +11,12 @@
       (ngSubmit)="submitActivityForm()">
       <div>
         <label for="activity-date">Date</label>
-        <input type="date" id="activity-date" formControlName="runDate" [min]="goal()!.startDate | formatDateToInputMin" [max]="goal()!.endDate | formatDateToInputMin" />
+        <input type="date" id="activity-date" formControlName="runDate" [min]="goal()!.startDate | formatDateToInputMin" [max]="goal()!.endDate | formatDateToInputMin" (change)="updateDateValidation()" #runDate />
         <small *ngIf="isRequired('runDate')" class="mt-2 pl-0.5 text-xs text-red-500">
           Run date is required
+        </small>
+        <small *ngIf="dateRangeViolation('runDate')" class="mt-2 pl-0.5 text-xs text-red-500">
+          Please, enter a date in the valid range
         </small>
       </div>
       <div>

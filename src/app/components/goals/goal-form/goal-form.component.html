@@ -31,26 +31,31 @@
       placeholder="Feel free to go into detail... but not too much 🤣"
       formControlName="description"
     />
+    <small
+      *ngIf="isLonger('description')"
+      class="mt-1 pl-0.5 text-xs text-red-500"
+      >Please, do not enter more than 50 characters</small
+    >
   </div>
   <div>
     <label for="goal-start-date">Start Date</label>
-    <input type="date" id="goal-start-date" formControlName="startDate" />
+    <input type="date" id="goal-start-date" formControlName="startDate" #startDate (change)="updateDateRange('startDate')" />
     <small
       *ngIf="isRequired('startDate')"
       class="mt-1 pl-0.5 text-xs text-red-500"
       >Start date is required</small
     >
-    <!-- <small *ngIf="invalidDate('startDate')" class="mt-1 pl-0.5 text-xs text-red-500">Plase, enter a valid date</small> -->
+    <small *ngIf="dateRangeViolation('startDate')" class="mt-1 pl-0.5 text-xs text-red-500">Please, enter a date before end date</small>
   </div>
   <div>
     <label for="goal-end-date">End Date</label>
-    <input type="date" id="goal-end-date" formControlName="endDate" />
+    <input type="date" id="goal-end-date" formControlName="endDate" #endDate (change)="updateDateRange('endDate')" />
     <small
-      *ngIf="isRequired('endDate')"
-      class="mt-1 pl-0.5 text-xs text-red-500"
-      >End date is required</small
+    *ngIf="isRequired('endDate')"
+    class="mt-1 pl-0.5 text-xs text-red-500"
+    >End date is required</small
     >
-    <!-- <small *ngIf="invalidDate('endDate')" class="mt-1 pl-0.5 text-xs text-red-500">Plase, enter a valid date</small> -->
+    <small *ngIf="dateRangeViolation('endDate')" class="mt-1 pl-0.5 text-xs text-red-500">Please, enter a date after start date</small>
   </div>
   <div>
     <label for="goal-km">KM goal</label>
