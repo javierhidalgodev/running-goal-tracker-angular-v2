@@ -11,13 +11,13 @@ const routes: Routes = [
   },
   {
     canActivate: [privateGuard()],
-    path: 'goals',
+    path: '',
     component: PrivateLayoutComponent,
     loadChildren: () => import('./components/goals/goals.module'),
   },
   {
     path: '**',
-    redirectTo: 'goals'
+    redirectTo: 'home'
   }
 ];
 

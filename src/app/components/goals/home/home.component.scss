@@ -1,0 +1,7 @@
+:host {
+    @apply flex flex-col gap-4 max-w-[600px] mx-auto text-center;
+
+    & div {
+        @apply px-10 py-6 bg-neutral-900 rounded-lg
+    }
+}

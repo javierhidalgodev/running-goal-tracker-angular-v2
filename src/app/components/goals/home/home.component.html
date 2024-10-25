@@ -1,0 +1,41 @@
+<div>
+    <h1 class="text-2xl font-semibold">Welcome back {{ userEmail }}! 👋🏻</h1>
+    <p>Here is your goals summary</p>
+</div>
+
+@if (isLoading()) {
+    <p>Loading...</p>
+} @else {
+    <section class="grid grid-cols-3 gap-4">
+        @if (goals().length === 0) {
+            <div class="flex flex-col justify-center items-center">
+                <p class="text-7xl font-extrabold">0</p>
+                <p>Since start with us</p>
+            </div>
+        } @else {
+            <div class="flex flex-col justify-center items-center">
+                <p class="text-7xl font-extrabold">{{ goals().length }}</p>
+                <p>Tracked activities</p>
+            </div>
+        }
+            <div class="flex flex-col justify-center items-center">
+                @if((goals() | filterGoals: 'complete': true).length === 0) {
+                    <p class="text-7xl font-extrabold">0</p>
+                } @else {
+                    <p class="text-7xl font-extrabold">{{ (goals() | filterGoals: 'complete': true).length }}</p>
+                }
+                <p>Completed</p>
+            </div>
+            
+            <div class="flex flex-col justify-center items-center">
+                @if((goals() | filterGoals: 'complete': false).length === 0) {
+                    <p class="text-7xl font-extrabold">0</p>
+                } @else {
+                    <p class="text-7xl font-extrabold">{{ (goals() | filterGoals: 'complete': false).length }}</p>
+                }
+                <p>To achieve</p>
+            </div>
+    </section>
+}
+
+<a class="w-fit px-4 py-2 text-sm font-semibold bg-green-600 hover:bg-green-700 rounded-md text-nowrap" routerLink="/new-goal">NEW GOAL</a>

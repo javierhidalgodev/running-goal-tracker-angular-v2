@@ -10,6 +10,7 @@ import { GoalDetailsComponent } from './goal-details/goal-details.component';
 import ActivityModule from '@components/activity/activity.module';
 import { TimestampToDatePipe } from 'app/pipes/timestamp-to-date.pipe';
 import { SharedModule } from '@components/shared/shared.module';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { SharedModule } from '@components/shared/shared.module';
     GoalFormComponent,
     GoalTableComponent,
     GoalDetailsComponent,
+    HomeComponent,
   ],
   imports: [
     CommonModule,
