@@ -1,7 +1,11 @@
 :host {
-    @apply flex flex-col gap-4 max-w-[600px] mx-auto text-center;
+    @apply flex flex-col gap-4 max-w-[600px] mx-auto text-center select-none;
 
     & div {
-        @apply px-10 py-6 bg-neutral-900 rounded-lg
+        @apply px-10 py-6 bg-neutral-900 rounded-lg max-sm:px-6
     }
+}
+
+a {
+    @apply w-full p-3 text-sm font-semibold rounded-md text-nowrap
 }

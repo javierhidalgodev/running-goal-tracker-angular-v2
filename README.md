@@ -94,18 +94,20 @@ Desde la página del perfil, se podrá borrar el mismo.
   - [x] Componente/UI.
   - [x] Implementación.
 
-- [x] Página de perfil.
+- [x] Página de Home.
   - [x] Componente/UI.
   - [x] Lógica.
+  - [ ] Animaciones de números.
 
 - Mobile Responsive.
   - [ ] Goal List.
   - [ ] New Goal.
+  - [x] Home
   - [x] Goal Details.
   - [ ] New Activity.
   - [ ] Navbar.
-  - [ ] Sign In.
-  - [ ] Sign Up.
+  - [x] Sign In.
+  - [x] Sign Up.
 
 ## Tareas generales:
 - [ ] Comprobar si las actividades de los objetivos se muestran en orden.
