@@ -7,7 +7,11 @@ import { FilterGoalsPipe } from 'app/pipes/filter-goals.pipe';
 
 
 @NgModule({
-  declarations: [TimestampToDatePipe, FormatDateToInputMinPipe, FilterGoalsPipe],
+  declarations: [
+    TimestampToDatePipe,
+    FormatDateToInputMinPipe,
+    FilterGoalsPipe
+  ],
   imports: [
     CommonModule
   ],
