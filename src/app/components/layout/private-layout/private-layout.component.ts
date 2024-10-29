@@ -1,5 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'app/services/auth.service';
 import { ResponsiveService } from 'app/services/responsive.service';
@@ -7,9 +6,9 @@ import { ResponsiveService } from 'app/services/responsive.service';
 @Component({
   selector: 'app-private-layout',
   template: `
-    <header class="h-[50px] p-3 flex items-center bg-neutral-900">
-      <nav class="relative w-full flex items-center gap-4">
-        <button class="sm:hidden">
+    <header [ngClass]="[smallScreen() ? 'fixed w-full' : 'relative', 'h-[50px] p-3 flex items-center bg-neutral-900']">
+      <nav class="w-full flex items-center gap-4">
+        <button [ngClass]="[smallScreen() ? '' : 'hidden']" (click)="switchMenuStatus()">
           <svg
             class="w-5 h-5"
             aria-hidden="true"
@@ -32,21 +31,11 @@ import { ResponsiveService } from 'app/services/responsive.service';
           class="text-xl font-extrabold italic [text-shadow:_0px_0px_rgb(46_46_46_/_0)] hover:[text-shadow:_-2px_2px_rgb(22_163_74_/_0.5)] hover:scale-[1.02] transition"
           >RUNNING GOALS TRACKER</a
         >|
-        <ng-template *ngIf="">
-          <div class="mt-6 flex flex-col sm:flex-row rounded-md bg-neutral-600 [&>a]:px-4 [&>a]:py-2">
-            <a
-              routerLink="goals"
-              class="font-medium italic hover:bg-green-600"
-              >GOAL LIST</a
-            >
-            <a
-              routerLink="/new-goal"
-              class="font-medium italic hover:bg-green-600"
-              >NEW GOAL</a
-            >
+          <div [ngClass]="[smallScreen() ? 'mobile-styles' : 'flex-row gap-4 [&>a:hover]:text-green-600', menuOpen() ? 'flex' : 'hidden', 'flex [&>a]:font-medium [&>a]:italic']">
+            <a routerLink="goals" (click)="switchMenuStatus()">GOAL LIST</a>
+            <a routerLink="/new-goal" (click)="switchMenuStatus()">NEW GOAL</a>
           </div>
-        </ng-template>
-        <p class="mr-0 ml-auto bg-blue-600 p-2 py-1 text-xs rounded-full">
+        <p class="max-sm:hidden mr-0 ml-auto bg-blue-600 p-2 py-1 text-xs rounded-full">
           {{ currentUser }}
         </p>
         <button
@@ -64,18 +53,21 @@ import { ResponsiveService } from 'app/services/responsive.service';
   styleUrl: './private-layout.component.scss',
 })
 export default class PrivateLayoutComponent {
-  menuMode = this._responsiveService.screenWidth()
-  
+  smallScreen = computed(() => this._responsiveService.smallScreen())
+  menuOpen = signal<boolean>(false)
+
   constructor(
     private _authService: AuthService,
     private _responsiveService: ResponsiveService,
     private _router: Router
-  ) {
-    console.log(this.menuMode)
-  }
+  ) { }
 
   get currentUser() {
     return this._authService.getCurrentUser()?.email;
+  }
+
+  switchMenuStatus() {
+    this.menuOpen.set(!this.menuOpen())
   }
 
   async logout() {
