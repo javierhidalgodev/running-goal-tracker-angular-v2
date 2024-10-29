@@ -1,11 +1,11 @@
-import { Component, effect, ElementRef, input, Renderer2, signal, ViewChild } from '@angular/core';
+import { Component, effect, ElementRef, input, signal, ViewChild } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { invalidDateValidator, FormFieldName, isRequired, minValidator, invalidDate, dateRangeValidator } from '@utils/validators';
 import { ActivityCreate, ActivityForm, Goal, GoalService } from 'app/services/goal.service';
 import { ToasterService } from 'app/services/toaster.service';
-import { map, switchMap } from 'rxjs';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-activity-form',
@@ -34,7 +34,6 @@ export class ActivityFormComponent {
   savingSignal = signal(false)
 
   constructor(
-    private _renderer2: Renderer2,
     private _fb: FormBuilder,
     private _goalService: GoalService,
     private _router: Router,
