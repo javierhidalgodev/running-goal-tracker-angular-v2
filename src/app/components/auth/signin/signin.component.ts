@@ -52,7 +52,7 @@ export class SigninComponent {
 
     try {
       await this._authService.singIn({ email, password })
-      this._router.navigate(['goals'])
+      this._router.navigate(['home'])
     } catch (error) {
       this._toasterService.showNotification('Invalid credentials', 'error')
       // console.error('Something went wrong during login process')

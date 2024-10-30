@@ -1,11 +1,13 @@
 import { Dialog } from '@angular/cdk/dialog'
 import { Injectable } from '@angular/core';
 import { DialogComponent } from '@components/dialog/dialog.component';
+import { Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DialogService {
+  private _dialogSubscription$: Subscription = new Subscription()
 
   constructor(private _dialog: Dialog) { }
 

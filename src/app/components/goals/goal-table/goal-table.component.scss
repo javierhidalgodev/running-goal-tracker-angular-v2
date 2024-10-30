@@ -1,5 +1,5 @@
-th { @apply py-2 }
-td { @apply py-4 }
+th { @apply py-2 text-nowrap }
+td { @apply py-4 text-nowrap }
 
 tr {
 	@apply hover:bg-neutral-800/50

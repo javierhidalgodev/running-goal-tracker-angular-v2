@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { DialogService } from 'app/services/dialog.service';
 import { Activity, Goal, GoalService } from 'app/services/goal.service';
 import { ToasterService } from 'app/services/toaster.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-goal-details',
@@ -14,6 +15,7 @@ export class GoalDetailsComponent {
   idTask = input<string>('')
   goal = signal<Goal | null>(null)
   activities = signal<Activity[]>([])
+  private _activitiesSubscription$: Subscription = new Subscription()
   isLoading = this._goalService.isLoading
 
   constructor(
@@ -42,7 +44,7 @@ export class GoalDetailsComponent {
   }
 
   getActivities() {
-    this._goalService.getActivities(this.idTask()).subscribe({
+    this._activitiesSubscription$ = this._goalService.getActivities(this.idTask()).subscribe({
       next: activities => {
         this.activities.set(activities)
       },
@@ -75,5 +77,9 @@ export class GoalDetailsComponent {
 
   navigateToActivityForm() {
     this._router.navigate(['/goals', this.idTask(), 'new-activity'])
+  }
+
+  ngOnDestroy(): void {
+    this._activitiesSubscription$.unsubscribe()
   }
 }
