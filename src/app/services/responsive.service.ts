@@ -9,7 +9,7 @@ import { tap } from 'rxjs';
 export class ResponsiveService {
   breakPointObserver = inject(BreakpointObserver)
 
-  screenWidth = toSignal(this.breakPointObserver.observe([Breakpoints.Small, Breakpoints.XSmall]))
+  screenWidth = toSignal(this.breakPointObserver.observe([Breakpoints.XSmall]))
 
   smallScreen = computed(() => this.screenWidth()?.matches)
 }

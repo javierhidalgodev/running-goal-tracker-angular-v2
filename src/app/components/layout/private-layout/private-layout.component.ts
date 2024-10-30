@@ -1,4 +1,4 @@
-import { Component, computed, Renderer2, signal } from '@angular/core';
+import { Component, effect, Renderer2, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'app/services/auth.service';
 import { ResponsiveService } from 'app/services/responsive.service';
@@ -8,8 +8,8 @@ import { ResponsiveService } from 'app/services/responsive.service';
   template: `
     <header
       [ngClass]="[
-        smallScreen() ? 'fixed w-full' : 'relative',
-        'h-[50px] p-3 flex items-center bg-neutral-900'
+        smallScreen() ? 'fixed' : 'relative',
+        'w-full h-auto p-3 flex items-center bg-neutral-900'
       ]"
     >
       <nav class="w-full flex items-center gap-4">
@@ -34,55 +34,30 @@ import { ResponsiveService } from 'app/services/responsive.service';
           </svg>
         </button>
 
-        <a
-          routerLink="/home"
-          class="text-xl font-extrabold italic [text-shadow:_0px_0px_rgb(46_46_46_/_0)] hover:[text-shadow:_-2px_2px_rgb(22_163_74_/_0.5)] hover:scale-[1.02] transition"
-          >RUNNING GOALS TRACKER</a
-        >|
+        <a routerLink="/home" class="text-xl font-extrabold italic">RUNNING GOALS TRACKER</a
+        >
         <div
           [ngClass]="[
             smallScreen()
               ? 'mobile-styles'
-              : 'flex-row gap-4 [&>a:hover]:text-green-600',
-            menuOpen() ? 'flex' : 'hidden',
+              : 'flex-row grow items-center gap-4 [&>a:hover]:text-green-600',
+            isMenuOpen() ? 'flex' : 'hidden',
             'flex [&>a]:font-medium [&>a]:italic'
           ]"
         >
+          <!-- <span [ngClass]="smallScreen() ? 'hidden' : ''">|</span> -->
           <a routerLink="goals" (click)="switchMenuStatus()">GOAL LIST</a>
           <a routerLink="/new-goal" (click)="switchMenuStatus()">NEW GOAL</a>
-        </div>
-        <p
+                <!-- <p
           class="max-sm:hidden mr-0 ml-auto bg-blue-600 p-2 py-1 text-xs rounded-full"
         >
           {{ currentUser }}
-        </p>
+        </p> -->
         <button
-          class="w-fit py-2 px-6 ml-auto mr-0 text-sm font-semibold bg-green-600 hover:bg-green-700 rounded-md"
+          [ngClass]="[smallScreen() ? 'uppercase italic font-bold text-green-400 hover:text-white' : 'ml-auto mr-0 py-1.5 px-4 bg-green-600 hover:bg-green-700 text-sm rounded-md', 'w-fit']"
           (click)="logout()"
-        >
-          <ng-container *ngIf="smallScreen(); else text">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              x-bind:width="size"
-              x-bind:height="size"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              x-bind:stroke-width="stroke"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              width="24"
-              height="24"
-              stroke-width="2"
-            >
-              <path d="M13 12v.01"></path>
-              <path d="M3 21h18"></path>
-              <path d="M5 21v-16a2 2 0 0 1 2 -2h7.5m2.5 10.5v7.5"></path>
-              <path d="M14 7h7m-3 -3l3 3l-3 3"></path>
-            </svg>
-          </ng-container>
-          <ng-template #text>Logout</ng-template>
-        </button>
+        >Logout</button>
+        </div>
       </nav>
     </header>
     <section class="max-w-[1200px] w-full mx-auto p-10">
@@ -92,27 +67,35 @@ import { ResponsiveService } from 'app/services/responsive.service';
   styleUrl: './private-layout.component.scss',
 })
 export default class PrivateLayoutComponent {
-  smallScreen = computed(() => this._responsiveService.smallScreen());
-  menuOpen = signal<boolean>(false);
+  smallScreen = this._responsiveService.smallScreen
+  isMenuOpen = signal<boolean>(true)
 
   constructor(
     private _authService: AuthService,
     private _responsiveService: ResponsiveService,
     private _router: Router,
     private _renderer2: Renderer2
-  ) {}
+  ) {
+    effect(() => {
+      if (!this.smallScreen() && !this.isMenuOpen()) {
+        this.switchMenuStatus()
+      }
+    })
+  }
 
   get currentUser() {
     return this._authService.getCurrentUser()?.email;
   }
 
   switchMenuStatus() {
-    this.menuOpen.set(!this.menuOpen());
+    if (this.smallScreen()) {
+      this.isMenuOpen.set(!this.isMenuOpen())
 
-    if (this.menuOpen()) {
-      this._renderer2.addClass(document.body, 'overflow-y-hidden');
-    } else {
-      this._renderer2.removeClass(document.body, 'overflow-y-hidden');
+      if (this.isMenuOpen()) {
+        this._renderer2.addClass(document.body, 'overflow-y-hidden');
+      } else {
+        this._renderer2.removeClass(document.body, 'overflow-y-hidden');
+      }
     }
   }
 
