@@ -100,19 +100,19 @@ Desde la página del perfil, se podrá borrar el mismo.
   - [ ] Animaciones de números.
 
 - Mobile Responsive.
-  - [ ] Goal List.
-  - [ ] New Goal.
+  - [x] Goal List.
+  - [x] New Goal.
   - [x] Home
   - [x] Goal Details.
-  - [ ] New Activity.
-  - [ ] Navbar.
+  - [x] New Activity.
+  - [x] Navbar.
   - [x] Sign In.
   - [x] Sign Up.
 
 ## Tareas generales:
-- [ ] Comprobar si las actividades de los objetivos se muestran en orden.
+- [x] Comprobar si las actividades de los objetivos se muestran en orden (ORDENADAS con Queries).
 - [x] Corrección del posicionamiento de elementos en la UI.
-- [ ] Mejora del navbar (UI)
+- [x] Mejora del navbar (UI)
 - [ ] Manejar errores de NO CONEXIÓN con Firestore.
 - [x] Corrección del campo "description" en la verificación.
 - [x] Corrección del control de fechas. La entrada de una fecha de inicio condiciona la fecha de final y viceversa. <span style="background-color: blue; padding: 1px 3px; border-radius: 3px">Tiene una lógica un poco compleja. Habría que revisarla y simplificarla lo máximo posible.</span>

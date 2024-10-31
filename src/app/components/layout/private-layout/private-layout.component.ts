@@ -8,7 +8,7 @@ import { ResponsiveService } from 'app/services/responsive.service';
   template: `
     <header
       [ngClass]="[
-        smallScreen() ? 'absolute z-50' : 'relative',
+        smallScreen() ? 'absolute top-0 z-50' : 'relative',
         'w-full h-auto p-3 flex items-center bg-neutral-900'
       ]"
     >
@@ -34,7 +34,7 @@ import { ResponsiveService } from 'app/services/responsive.service';
           </svg>
         </button>
 
-        <a routerLink="/home" class="text-xl font-extrabold italic hover:text-green-600"
+        <a routerLink="/home" [ngClass]="[smallScreen() ? 'text-lg' : 'text-xl', 'font-extrabold italic hover:text-green-600']" (click)="handleClick(true)"
           >RUNNING GOALS TRACKER</a
         >
         <div
@@ -47,8 +47,8 @@ import { ResponsiveService } from 'app/services/responsive.service';
           ]"
         >
           <!-- <span [ngClass]="smallScreen() ? 'hidden' : ''">|</span> -->
-          <a routerLink="goals" (click)="switchMenuStatus()">GOAL LIST</a>
-          <a routerLink="/new-goal" (click)="switchMenuStatus()">NEW GOAL</a>
+          <a routerLink="goals" (click)="handleClick()">GOAL LIST</a>
+          <a routerLink="/new-goal" (click)="handleClick()">NEW GOAL</a>
           <!-- <p
           class="max-sm:hidden mr-0 ml-auto bg-blue-600 p-2 py-1 text-xs rounded-full"
         >
@@ -68,11 +68,11 @@ import { ResponsiveService } from 'app/services/responsive.service';
         </div>
       </nav>
     </header>
-    <section [ngClass]="[smallScreen() ? 'mt-10' : 'mt-0', 'max-w-[1200px] w-full mx-auto p-10']">
+    <section [ngClass]="[smallScreen() ? 'mt-14' : 'mt-0', 'max-w-[1200px] w-full mx-auto p-10']">
       <router-outlet />
     </section>
-    <footer>
-      <p class="p-2 text-center">Made by javierhidalgodev with <span class="text-red-600">❤</span> 2024</p>
+    <footer class="mt-auto">
+      <p class="p-2 text-center text-balance">Made by javierhidalgodev with <span class="text-red-600">❤</span> 2024</p>
     </footer>
   `,
   styleUrl: './private-layout.component.scss',
@@ -99,6 +99,14 @@ export default class PrivateLayoutComponent {
 
   get currentUser() {
     return this._authService.getCurrentUser()?.email;
+  }
+
+  handleClick(isMain: boolean = false) {
+    this.smallScreen() && isMain
+      ? (
+        this.isMenuOpen && this.switchMenuStatus()
+      )
+      : this.switchMenuStatus()
   }
 
   switchMenuStatus() {
