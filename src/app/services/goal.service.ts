@@ -74,7 +74,7 @@ export class GoalService {
    * que necesiten esta data.
    */
   getGoals = toSignal(
-    (collectionData(query(this._goalCollection, where('userId', '==', this._authService.getCurrentUser()?.uid)), { idField: 'id' }) as Observable<Goal[]>).pipe(
+    (collectionData(query(this._goalCollection, orderBy('registrationDate', 'desc'), where('userId', '==', this._authService.getCurrentUser()?.uid)), { idField: 'id' }) as Observable<Goal[]>).pipe(
       tap(() => {
         this.isLoading.set(false)
       }

@@ -49,57 +49,62 @@ Desde la página del perfil, se podrá borrar el mismo.
   - [x] Configurar base de datos.
 - [x] Environments.
 
-- [x] Componente de `Sign In`.
+  ### Auth service.
+  - [ ] Controlar/definir tiempo de expiración del token.
+
+  ### Componente de `Sign In`.
   - [x] UI.
   - [x] Lógica.
   - [x] Manejar inicio de sesión inválido.
   - [x] Manejar validación de campos.
-- [x] Componente de `Sign Up`.
+  ### Componente de `Sign Up`.
   - [x] UI.
   - [x] Lógica.
   - [x] Manejar inicio de sesión inválido.
   - [x] Manejar validación de campos.
 
-- [x] `Guard` privado y público.
+  ### `Guard` privado y público.
   - [x] Configuración del `guard`.
   - [x] Configuración de las rutas. En mi caso, al ser una app basada en módulo, y no en componentes *standalone*, estoy teniendo problemas con el tema de la carga perezosa. Parece funcionar el tema de las rutas hijas, pero no sé si la carga está siendo del todo perezosa.
 
-- [x] Layout para la parte privada.
+  ### Layout para la parte privada.
 
-- [x] Componente de `New Goal`.
+  ### Componente de `New Goal`.
   - [x] UI.
   - [x] Lógica.
   - La lógica de validación para las fechas, que sean correctas, que no esté una sobre la otra, incluso que sean requeridas, cuando tenemos el parámetro de `pristine`, se vuelve complicada.
 
-- [x] Componente de `Goals list`.
+  ### Componente de `Goals list`.
+  - [x] UI.
+  - [x] Lógica.
+  - [x] Organizar la tareas por fecha de grabación.
+  - [ ] Dar la posibilidad de filtrar por otros campos (km, nombre, estado).
+
+  ### Componente de `Goal detail`.
   - [x] UI.
   - [x] Lógica.
 
-- [x] Componente de `Goal detail`.
-  - [x] UI.
-  - [x] Lógica.
-
-- [x] Módulo de `Activity form`.
+  ### Módulo de `Activity form`.
   - [x] Componente de formulario.
   - [x] Utilizar el servicio de goal o crear uno específico.
   - [x] Lógica. <span style="background-color: red; padding: 1px 3px; border-radius: 3px">Aún así habría que revisarlo</span>
 
-- [x] Sistema de notificaciones/toaster.
+  ### Sistema de notificaciones/toaster.
   - [x] Servicio.
   - [x] Componente/UI.
   - [x] Implementación.
 
-- [x] Ventana de diálogo para acciones.
+  ### Ventana de diálogo para acciones.
   - [x] Servicio.
   - [x] Componente/UI.
   - [x] Implementación.
 
-- [x] Página de Home.
+  ### Página de Home.
   - [x] Componente/UI.
   - [x] Lógica.
   - [ ] Animaciones de números.
 
-- Mobile Responsive.
+  ### Mobile Responsive.
   - [x] Goal List.
   - [x] New Goal.
   - [x] Home
@@ -109,10 +114,10 @@ Desde la página del perfil, se podrá borrar el mismo.
   - [x] Sign In.
   - [x] Sign Up.
 
-## Tareas generales:
-- [x] Comprobar si las actividades de los objetivos se muestran en orden (ORDENADAS con Queries).
-- [x] Corrección del posicionamiento de elementos en la UI.
-- [x] Mejora del navbar (UI)
-- [ ] Manejar errores de NO CONEXIÓN con Firestore.
-- [x] Corrección del campo "description" en la verificación.
-- [x] Corrección del control de fechas. La entrada de una fecha de inicio condiciona la fecha de final y viceversa. <span style="background-color: blue; padding: 1px 3px; border-radius: 3px">Tiene una lógica un poco compleja. Habría que revisarla y simplificarla lo máximo posible.</span>
+  ### Tareas generales:
+  - [x] Comprobar si las actividades de los objetivos se muestran en orden (ORDENADAS con Queries).
+  - [x] Corrección del posicionamiento de elementos en la UI.
+  - [x] Mejora del navbar (UI)
+  - [ ] Manejar errores de NO CONEXIÓN con Firestore.
+  - [x] Corrección del campo "description" en la verificación.
+  - [x] Corrección del control de fechas. La entrada de una fecha de inicio condiciona la fecha de final y viceversa. <span style="background-color: blue; padding: 1px 3px; border-radius: 3px">Tiene una lógica un poco compleja. Habría que revisarla y simplificarla lo máximo posible.</span>
