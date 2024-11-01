@@ -71,8 +71,8 @@ import { ResponsiveService } from 'app/services/responsive.service';
     <section [ngClass]="[smallScreen() ? 'mt-14' : 'mt-0', 'max-w-[1200px] w-full mx-auto p-10']">
       <router-outlet />
     </section>
-    <footer class="mt-auto">
-      <p class="p-2 text-center text-balance">Made by javierhidalgodev with <span class="text-red-600">❤</span> 2024</p>
+    <footer class="mt-auto text-sm">
+      <p class="p-2 text-center text-balance">Made by <a class="text-green-600 hover:text-green-700" href="https://javierhidalgodev.github.io/portfolio/" rel="noopener" target="_blank">javierhidalgodev</a> with <span class="text-red-600">❤</span> 2024</p>
     </footer>
   `,
   styleUrl: './private-layout.component.scss',

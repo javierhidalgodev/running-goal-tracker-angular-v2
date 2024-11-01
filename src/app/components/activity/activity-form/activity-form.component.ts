@@ -88,7 +88,6 @@ export class ActivityFormComponent {
       // console.log(runDate < min, runDate > max)
 
       if(runDate < min || runDate > max) {
-        console.log('error amigo')
         runDateControl.setErrors({ 'dateRangeViolation': true })
       }
     }

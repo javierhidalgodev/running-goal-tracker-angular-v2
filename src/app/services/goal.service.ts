@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { addDoc, collection, collectionData, deleteDoc, doc, docData, Firestore, getDoc, orderBy, query, Timestamp, updateDoc, where } from '@angular/fire/firestore';
+import { addDoc, collection, collectionData, deleteDoc, doc, docData, Firestore, getDoc, getDocs, orderBy, query, Timestamp, updateDoc, where } from '@angular/fire/firestore';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import { AuthService } from './auth.service';
 
@@ -49,10 +49,23 @@ export class GoalService {
   }
 
   deleteGoal(goalId: string) {
+    this._deleteActivitiesFromGoal(goalId)
+
     const docRef = doc(this._goalCollection, goalId)
     return deleteDoc(docRef)
   }
   
+  private async _deleteActivitiesFromGoal(goalId: string): Promise<void[]> {
+    const q = query(this._activityCollection, where('goalId', '==', goalId))
+    const activitiesSnapshot = await getDocs(q)
+    
+    const deletePromises = activitiesSnapshot.docs.map(docSnap => {
+      return deleteDoc(docSnap.ref)
+    })
+
+    return Promise.all(deletePromises)
+  }
+
   getGoalById(goalId: string) {
     const docRef = doc(this._goalCollection, goalId)
     return getDoc(docRef)

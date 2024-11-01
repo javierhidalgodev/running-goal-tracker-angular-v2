@@ -5,7 +5,6 @@ import { ActivityRoutingModule } from './activity-routing.module';
 import { ActivityFormComponent } from './activity-form/activity-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivityTableComponent } from './activity-table/activity-table.component';
-import GoalsModule from '@components/goals/goals.module';
 import { SharedModule } from '@components/shared/shared.module';
 
 

@@ -19,7 +19,7 @@ import { IncrementCountDirective } from './directives/increment-count.directive'
     AppComponent,
     ToasterComponent,
     NotificationComponent,
-    DialogComponent
+    DialogComponent,
   ],
   imports: [
     BrowserModule,

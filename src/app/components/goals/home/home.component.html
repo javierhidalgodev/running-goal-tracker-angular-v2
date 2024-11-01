@@ -20,26 +20,34 @@
     </div>
     }
     <div class="flex flex-col justify-center items-center">
-        @if((goals() | filterGoals: 'complete': true).length === 0) {
-        <p class="text-7xl font-extrabold">0</p>
-        } @else {
+        <!-- @if((goals() | filterGoals: 'complete': true).length === 0) { -->
+        <!-- <p class="text-7xl font-extrabold">0</p> -->
+        <!-- } @else { -->
         <p class="text-7xl font-extrabold">{{ (goals() | filterGoals: 'complete': true).length }}</p>
-        }
+        <!-- } -->
         <p>Completed</p>
     </div>
 
     <div class="flex flex-col justify-center items-center">
-        @if((goals() | filterGoals: 'complete': false).length === 0) {
-        <p class="text-7xl font-extrabold">0</p>
-        } @else {
+        <!-- @if((goals() | filterGoals: 'complete': false).length === 0) { -->
+        <!-- <p class="text-7xl font-extrabold">0</p> -->
+        <!-- } @else { -->
         <p class="text-7xl font-extrabold">{{ (goals() | filterGoals: 'complete': false).length }}</p>
-        }
+        <!-- } -->
         <p>To achieve</p>
+    </div>
+    <div class="flex flex-col justify-center items-center">
+        <!-- @if((goals() | filterGoals: 'complete': false).length === 0) { -->
+        <!-- <p class="text-7xl font-extrabold">0</p> -->
+        <!-- } @else { -->
+        <p class="text-7xl font-extrabold max-sm:text-2xl">{{ goals() | reduce: 'km' }}</p>
+        <!-- } -->
+        <p>Total KM</p>
     </div>
 </section>
 }
 
 <section class="actions flex gap-4 max-xs:flex-col">
     <a class="bg-green-600 hover:bg-green-700" routerLink="/new-goal">NEW GOAL</a>
-    <a class="bg-blue-600 hover:bg-blue-700" routerLink="/new-goal">GOALS LIST</a>
+    <a class="bg-blue-600 hover:bg-blue-700" routerLink="/goals">GOALS LIST</a>
 </section>

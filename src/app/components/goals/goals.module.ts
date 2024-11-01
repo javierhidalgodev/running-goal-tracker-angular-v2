@@ -10,7 +10,7 @@ import { GoalDetailsComponent } from './goal-details/goal-details.component';
 import ActivityModule from '@components/activity/activity.module';
 import { SharedModule } from '@components/shared/shared.module';
 import { HomeComponent } from './home/home.component';
-import { CdkMenu, CdkMenuTrigger, CdkMenuItem, CdkMenuModule } from '@angular/cdk/menu'
+import { CdkMenuModule } from '@angular/cdk/menu'
 import PrivateLayoutComponent from '@components/layout/private-layout/private-layout.component';
 
 

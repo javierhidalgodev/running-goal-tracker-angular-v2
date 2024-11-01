@@ -1,10 +1,8 @@
-import { Component, ViewChild } from '@angular/core';
-import { ToasterComponent } from '@components/toaster/toaster.component';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
-}
+export class AppComponent {}
