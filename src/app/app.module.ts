@@ -11,8 +11,6 @@ import { ToasterComponent } from './components/toaster/toaster.component';
 import { CdkPortalOutlet } from '@angular/cdk/portal';
 import { NotificationComponent } from './components/notification/notification.component';
 import { DialogComponent } from './components/dialog/dialog.component';
-import { CdkMenu, CdkMenuItem, CdkMenuModule, CdkMenuTrigger } from '@angular/cdk/menu';
-import { IncrementCountDirective } from './directives/increment-count.directive';
 
 @NgModule({
   declarations: [
