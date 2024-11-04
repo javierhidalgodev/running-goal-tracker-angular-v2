@@ -3,8 +3,8 @@ import { Timestamp } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { dateRangeValidator, FormFieldName, invalidDate, invalidDateValidator, isLonger, isRequired, isShorter, minValidator } from '@utils/validators';
-import { GoalCreate, GoalForm, GoalService } from 'app/services/goal.service';
-import { ToasterService } from 'app/services/toaster.service';
+import { GoalCreate, GoalForm, GoalService } from '@services/goal.service';
+import { ToasterService } from '@services/toaster.service';
 
 @Component({
   selector: 'app-goal-form',

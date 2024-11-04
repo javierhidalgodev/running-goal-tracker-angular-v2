@@ -69,6 +69,8 @@
           "configurations": {
             "production": {
               "namedChunks": true,
+              "sourceMap": false,
+              "aot": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -88,6 +90,7 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true,
+              "aot": true,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.development.ts",

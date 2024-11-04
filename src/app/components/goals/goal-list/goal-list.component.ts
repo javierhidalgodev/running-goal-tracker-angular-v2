@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { GoalService } from 'app/services/goal.service';
+import { GoalService } from '@services/goal.service';
 
 @Component({
   selector: 'app-goal-list',

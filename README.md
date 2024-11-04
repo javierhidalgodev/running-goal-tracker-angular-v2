@@ -121,3 +121,17 @@ Desde la página del perfil, se podrá borrar el mismo.
   - [ ] Manejar errores de NO CONEXIÓN con Firestore.
   - [x] Corrección del campo "description" en la verificación.
   - [x] Corrección del control de fechas. La entrada de una fecha de inicio condiciona la fecha de final y viceversa. <span style="background-color: blue; padding: 1px 3px; border-radius: 3px">Tiene una lógica un poco compleja. Habría que revisarla y simplificarla lo máximo posible.</span>
+
+  ### Revisión y refactorización del código:
+- [x] tsconfig.json:
+  - [x] Path aliases.
+
+- [x] angular.json (configuraciones generales y en producción/desarrollo):
+  - [x] AOT (Ahead Of Time).
+  - [x] Budgets.
+  - [x] SourceMaps.
+
+- [x] Archivos de `environments` para producción y desarrollo.
+
+- [x] Carga perezosa de módulos.
+- [x] Guards privado/público (código duplicado modificado).

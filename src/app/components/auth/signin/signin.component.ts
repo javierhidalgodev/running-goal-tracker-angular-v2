@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { hasEmailError, isRequired } from '@utils/validators';
-import { AuthService } from 'app/services/auth.service';
-import { ToasterService } from 'app/services/toaster.service';
+import { AuthService } from '@services/auth.service';
+import { ToasterService } from '@services/toaster.service';
 
 @Component({
   selector: 'app-signin',

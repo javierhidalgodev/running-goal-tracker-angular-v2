@@ -1,7 +1,7 @@
 import { Component, computed, effect, Renderer2, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'app/services/auth.service';
-import { ResponsiveService } from 'app/services/responsive.service';
+import { AuthService } from '@services/auth.service';
+import { ResponsiveService } from '@services/responsive.service';
 
 @Component({
   selector: 'app-private-layout',

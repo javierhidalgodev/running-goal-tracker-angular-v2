@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Goal } from 'app/services/goal.service';
+import { Goal } from '@services/goal.service';
 
 @Pipe({
   name: 'reduce'

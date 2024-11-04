@@ -1,38 +1,33 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
-import { map } from 'rxjs';
+import { map, tap } from 'rxjs';
 
-export const privateGuard = (): CanActivateFn => {
+export const checkAuthState = (isPublic: boolean): CanActivateFn => {
   return () => {
     const router = inject(Router)
     const authState = inject(AuthService)
 
     return authState.authState$.pipe(
       map(state => {
-        if (!state) {
+        if (state && isPublic) {
+          router.navigate([''])
+          return false
+        } else if (!state && !isPublic) {
           router.navigate(['/auth/sign-in'])
           return false
         }
         return true
-      })
-    )
-  };
-};
-
-export const publicGuard = (): CanActivateFn => {
-  return () => {
-    const router = inject(Router)
-    const authState = inject(AuthService)
-
-    return authState.authState$.pipe(
-      map(state => {
-        if (state) {
-          router.navigate(['/goals'])
-          return false
+      }),
+      tap(isAllowed => {
+        if(!isAllowed) {
+          console.warn('Access denied. Redirecting...')
         }
-        return true
       })
     )
   };
-};
+}
+
+export const privateGuard = checkAuthState(false)
+
+export const publicGuard = checkAuthState(true)

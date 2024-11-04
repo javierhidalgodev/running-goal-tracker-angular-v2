@@ -1,8 +1,8 @@
 import { Component, effect, Injector, input, OnInit, Signal, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { DialogService } from 'app/services/dialog.service';
-import { Activity, Goal, GoalService } from 'app/services/goal.service';
-import { ToasterService } from 'app/services/toaster.service';
+import { DialogService } from '@services/dialog.service';
+import { Activity, Goal, GoalService } from '@services/goal.service';
+import { ToasterService } from '@services/toaster.service';
 import { Subscription } from 'rxjs';
 
 @Component({

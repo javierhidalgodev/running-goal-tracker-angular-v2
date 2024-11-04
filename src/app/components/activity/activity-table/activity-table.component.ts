@@ -1,5 +1,5 @@
 import { Component, effect, input, signal } from '@angular/core';
-import { Activity, GoalService } from 'app/services/goal.service';
+import { Activity, GoalService } from '@services/goal.service';
 import { Subscription } from 'rxjs';
 
 @Component({

@@ -4,7 +4,6 @@ import { GoalFormComponent } from './goal-form/goal-form.component';
 import { GoalListComponent } from './goal-list/goal-list.component';
 import { GoalDetailsComponent } from './goal-details/goal-details.component';
 import { privateGuard } from 'app/auth.guard';
-import PrivateLayoutComponent from '@components/layout/private-layout/private-layout.component';
 import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
@@ -30,7 +29,7 @@ const routes: Routes = [
     component: GoalDetailsComponent
   },
   {
-    canActivate: [privateGuard()],
+    canActivate: [privateGuard],
     path: 'goals/:idTask/new-activity',
     loadChildren: () => import('../activity/activity.module'),
   }

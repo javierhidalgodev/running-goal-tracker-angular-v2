@@ -4,6 +4,11 @@ import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 
 const routes: Routes = [
+  { 
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'sign-in'
+  },
   {
     path: 'sign-in',
     component: SigninComponent
@@ -18,8 +23,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export default class AuthRoutingModule {
-    constructor() {
-        console.log('Module loaded!')
-    }
-}
+export default class AuthRoutingModule {}

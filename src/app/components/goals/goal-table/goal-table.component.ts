@@ -1,5 +1,5 @@
 import { Component, effect, input } from '@angular/core';
-import { Goal, GoalService } from 'app/services/goal.service';
+import { Goal, GoalService } from '@services/goal.service';
 
 @Component({
   selector: 'app-goal-table',

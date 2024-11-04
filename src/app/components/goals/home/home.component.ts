@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { User } from '@angular/fire/auth';
-import { AuthService } from 'app/services/auth.service';
-import { GoalService } from 'app/services/goal.service';
+import { AuthService } from '@services/auth.service';
+import { GoalService } from '@services/goal.service';
 
 @Component({
   selector: 'app-home',
