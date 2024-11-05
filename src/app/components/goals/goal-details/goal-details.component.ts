@@ -1,5 +1,6 @@
 import { Component, effect, Injector, input, OnInit, Signal, signal } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '@services/auth.service';
 import { DialogService } from '@services/dialog.service';
 import { Activity, Goal, GoalService } from '@services/goal.service';
 import { ToasterService } from '@services/toaster.service';
@@ -22,7 +23,8 @@ export class GoalDetailsComponent {
     private _router: Router,
     private _goalService: GoalService,
     private _toasterService: ToasterService,
-    private _dialogService: DialogService
+    private _dialogService: DialogService,
+    private _auth: AuthService
   ) {
     effect(() => {
       if (this.idTask()) {
@@ -33,14 +35,19 @@ export class GoalDetailsComponent {
   }
 
   async getGoal() {
-    const goalSnapshot = await this._goalService.getGoalById(this.idTask())
-
-    if (!goalSnapshot.exists()) {
-      this.isLoading.set(false)
-      return;
+    try {
+      const goalSnapshot = await this._goalService.getGoalById(this.idTask())
+  
+      if (!goalSnapshot.exists()) {
+        this.isLoading.set(false)
+        return;
+      }
+  
+      console.log(goalSnapshot.data()['userId'] === this._auth.getCurrentUser()?.uid)
+      this.goal.set(goalSnapshot.data() as Goal)
+    } catch (error) {
+      console.error(error)
     }
-
-    this.goal.set(goalSnapshot.data() as Goal)
   }
 
   getActivities() {

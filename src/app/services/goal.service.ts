@@ -74,7 +74,6 @@ export class GoalService {
   getGoal(goalId: string) {
     const docRef = doc(this._goalCollection, goalId)
     const docData = getDoc(docRef)
-
     // return docData(docRef) as Observable<Goal>
     return docData
   }
