@@ -87,7 +87,8 @@ Desde la página del perfil, se podrá borrar el mismo.
   ### Módulo de `Activity form`.
   - [x] Componente de formulario.
   - [x] Utilizar el servicio de goal o crear uno específico.
-  - [x] Lógica. <span style="background-color: red; padding: 1px 3px; border-radius: 3px">Aún así habría que revisarlo</span>
+  - [x] Lógica. <span style="background-color: red; padding: 1px 3px; border-radius: 3px">Aún así habría que revisarlo</span>.
+  - [ ] Borrar todas las actividades al borrar la entrada.
 
   ### Sistema de notificaciones/toaster.
   - [x] Servicio.
@@ -137,9 +138,9 @@ Desde la página del perfil, se podrá borrar el mismo.
 - [x] Guards privado/público (código duplicado modificado).
 - Modificación de las *rules* de `Firestore` para que solo el usuario creador pueda recuperar/modificar/eliminar:
   - Goals:
-    - [ ] Crear
-    - [ ] Obtener
-    - [ ] Eliminar
+    - [x] Crear
+    - [x] Obtener
+    - [x] Eliminar
   - Actividades:
-    - [ ] Crear
-    - [ ] Obtener
+    - [x] Crear
+    - [x] Obtener

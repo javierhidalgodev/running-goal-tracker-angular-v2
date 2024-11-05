@@ -20,6 +20,9 @@ export class ActivityTableComponent {
     this._activitiesSubscription$ = this._goalService.getActivities(this.goaldId()).subscribe({
       next: activities => {
         this.activities.set(activities)
+      },
+      error: error => {
+        console.log(error)
       }
     })
   }

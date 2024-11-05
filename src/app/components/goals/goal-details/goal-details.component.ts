@@ -73,6 +73,8 @@ export class GoalDetailsComponent {
     const confirmRes = await this._dialogService.openDialog()
     if (confirmRes) {
       try {
+        this._activitiesSubscription$.unsubscribe()
+
         await this._goalService.deleteGoal(this.idTask())
         this._toasterService.showNotification('Goal deleted!', 'info')
         this._router.navigate(['/goals'])

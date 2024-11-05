@@ -48,29 +48,39 @@ export class GoalService {
     })
   }
 
-  deleteGoal(goalId: string) {
-    this._deleteActivitiesFromGoal(goalId)
+  async deleteGoal(goalId: string) {
+    await this._deleteActivitiesFromGoal(goalId)
 
-    const docRef = doc(this._goalCollection, goalId)
-    return deleteDoc(docRef)
+    try {
+      const docRef = doc(this._goalCollection, goalId)
+      return deleteDoc(docRef)
+      
+    } catch (error) {
+     console.log(error) 
+    }
   }
-  
-  private async _deleteActivitiesFromGoal(goalId: string): Promise<void[]> {
-    const q = query(this._activityCollection, where('goalId', '==', goalId))
-    const activitiesSnapshot = await getDocs(q)
-    
-    const deletePromises = activitiesSnapshot.docs.map(docSnap => {
-      return deleteDoc(docSnap.ref)
-    })
 
-    return Promise.all(deletePromises)
+  private async _deleteActivitiesFromGoal(goalId: string) {
+    try {
+      const q = query(this._activityCollection, where('goalId', '==', goalId))
+      const activitiesSnapshot = await getDocs(q)
+  
+      const deletePromises = activitiesSnapshot.docs.map(docSnap => {
+        const docRef = docSnap.ref
+        return deleteDoc(docRef)
+      })
+  
+      await Promise.all(deletePromises)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   getGoalById(goalId: string) {
     const docRef = doc(this._goalCollection, goalId)
     return getDoc(docRef)
   }
-  
+
   getGoal(goalId: string) {
     const docRef = doc(this._goalCollection, goalId)
     const docData = getDoc(docRef)

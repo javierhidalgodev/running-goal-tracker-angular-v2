@@ -24,7 +24,7 @@ import {
   GoalService,
 } from '@services/goal.service';
 import { ToasterService } from '@services/toaster.service';
-import { map } from 'rxjs';
+import { map, take } from 'rxjs';
 
 @Component({
   selector: 'app-activity-form',
@@ -158,6 +158,7 @@ export class ActivityFormComponent {
     this._goalService
       .getActivities(this.idTask())
       .pipe(
+        take(1),
         map((activities) => {
           const total = activities.reduce((acc, curr) => acc + curr.km, 0);
 

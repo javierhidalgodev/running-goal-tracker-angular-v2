@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, effect } from '@angular/core';
 import { GoalService } from '@services/goal.service';
 
 @Component({
@@ -13,5 +13,7 @@ export class GoalListComponent {
 
   constructor(
     private _goalService: GoalService
-  ) {}
+  ) {
+    effect(() => console.log(this.goals()))
+  }
 }
