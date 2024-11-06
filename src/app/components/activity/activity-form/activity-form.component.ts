@@ -24,7 +24,7 @@ import {
   GoalService,
 } from '@services/goal.service';
 import { ToasterService } from '@services/toaster.service';
-import { map, take } from 'rxjs';
+import { map, Subscription, take } from 'rxjs';
 
 @Component({
   selector: 'app-activity-form',
@@ -48,6 +48,8 @@ export class ActivityFormComponent {
   isLoading = signal<boolean>(true);
   goal = signal<Goal | null>(null);
   savingSignal = signal(false);
+
+  private _activitiesSubscription$: Subscription = new Subscription
 
   constructor(
     private _fb: FormBuilder,
@@ -154,20 +156,20 @@ export class ActivityFormComponent {
     }
   }
 
-  updateGoal() {
-    this._goalService
+  async updateGoal() {
+    // const goal = await this._goalService.getGoalById(this.idTask())
+
+    this._activitiesSubscription$ = this._goalService
       .getActivities(this.idTask())
       .pipe(
         take(1),
         map((activities) => {
           const total = activities.reduce((acc, curr) => acc + curr.km, 0);
 
-          if (total >= this.goal()!.km) {
-            try {
-              this._goalService.updateGoal(this.idTask());
-            } catch (error) {
-              console.log(error);
-            }
+          try {
+            this._goalService.updateGoal(this.idTask(), total, total >= this.goal()!.km);
+          } catch (error) {
+            console.log(error);
           }
         })
       )
@@ -176,5 +178,9 @@ export class ActivityFormComponent {
 
   navigate() {
     this._router.navigate([]);
+  }
+
+  ngOnDestroy(): void {
+    this._activitiesSubscription$.unsubscribe()
   }
 }

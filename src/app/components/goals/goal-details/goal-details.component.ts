@@ -1,4 +1,4 @@
-import { Component, effect, Injector, input, OnInit, Signal, signal } from '@angular/core';
+import { Component, effect, input, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@services/auth.service';
 import { DialogService } from '@services/dialog.service';
@@ -43,7 +43,7 @@ export class GoalDetailsComponent {
         return;
       }
   
-      console.log(goalSnapshot.data()['userId'] === this._auth.getCurrentUser()?.uid)
+      // console.log(goalSnapshot.data()['userId'] === this._auth.getCurrentUser()?.uid)
       this.goal.set(goalSnapshot.data() as Goal)
     } catch (error) {
       console.error(error)
@@ -71,12 +71,12 @@ export class GoalDetailsComponent {
 
   async deleteGoal() {
     const confirmRes = await this._dialogService.openDialog()
+    this._activitiesSubscription$.unsubscribe()
     if (confirmRes) {
       try {
-        this._activitiesSubscription$.unsubscribe()
-
         await this._goalService.deleteGoal(this.idTask())
         this._toasterService.showNotification('Goal deleted!', 'info')
+
         this._router.navigate(['/goals'])
       } catch (error) {
         this._toasterService.showNotification('Something went wrong!', 'error')

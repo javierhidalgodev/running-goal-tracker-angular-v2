@@ -13,7 +13,5 @@ export class GoalListComponent {
 
   constructor(
     private _goalService: GoalService
-  ) {
-    effect(() => console.log(this.goals()))
-  }
+  ) { }
 }

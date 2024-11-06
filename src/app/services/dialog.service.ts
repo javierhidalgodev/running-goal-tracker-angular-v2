@@ -1,26 +1,28 @@
 import { Dialog } from '@angular/cdk/dialog'
 import { Injectable } from '@angular/core';
 import { DialogComponent } from '@components/dialog/dialog.component';
-import { Subscription } from 'rxjs';
+import { first, firstValueFrom, Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DialogService {
-  private _dialogSubscription$: Subscription = new Subscription()
-
   constructor(private _dialog: Dialog) { }
 
-  openDialog() {
+  async openDialog() {
     // Crea una referencia
-    const dialogRef = this._dialog.open<string>(DialogComponent, {
+    const dialogRef = this._dialog.open<boolean>(DialogComponent, {
       width: 'fit',
     })
 
-    return new Promise((resolve) => {
-      dialogRef.closed.subscribe(result => {
-        resolve(result)
-      })
-    }) 
+    // Crea un observable que será usado para devolver solo el primer valor, y gestionar automáticamente la desuscripción.
+    const source$ = dialogRef.closed
+    return firstValueFrom(source$)
+   
+    // return new Promise((resolve) => {
+    //   dialogRef.closed.subscribe(result => {
+    //     resolve(result)
+    //   })
+    // })
   }
 }

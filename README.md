@@ -137,6 +137,7 @@ Desde la página del perfil, se podrá borrar el mismo.
 - [x] Carga perezosa de módulos.
 - [x] Guards privado/público (código duplicado modificado).
 - Modificación de las *rules* de `Firestore` para que solo el usuario creador pueda recuperar/modificar/eliminar:
+  - [x] Resolver errores relacionados con las suscripciones
   - Goals:
     - [x] Crear
     - [x] Obtener

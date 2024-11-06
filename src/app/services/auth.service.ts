@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { Auth, authState, browserLocalPersistence, browserSessionPersistence, createUserWithEmailAndPassword, getAuth, setPersistence, signInWithEmailAndPassword, signOut, onAuthStateChanged } from '@angular/fire/auth';
+import { Auth, authState, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from '@angular/fire/auth';
 import { UserDataLogin } from '@models/user.model';
 import { Observable } from 'rxjs';
 
