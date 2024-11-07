@@ -5,6 +5,7 @@ import { hasEmailError, isRequired } from '@utils/validators';
 import { AuthService } from '@services/auth.service';
 import { ToasterService } from '@services/toaster.service';
 import { FirebaseError } from '@angular/fire/app';
+import { ToasterMessages, ToasterStyles } from 'app/constants/toaster.constants';
 
 @Component({
   selector: 'app-signin',
@@ -66,13 +67,22 @@ export class SigninComponent {
 
     switch (error.code) {
       case 'auth/network-request-failed':
-        this._toasterService.showNotification('Network request failed', 'error')
+        this._toasterService.showNotification(
+          ToasterMessages.NETWORK_ERROR,
+          ToasterStyles.ERROR
+        )
         break;
       case 'auth/invalid-credential':
-        this._toasterService.showNotification('Invalid credentials', 'error')
+        this._toasterService.showNotification(
+          ToasterMessages.INVALID_CREDENTIALS,
+          ToasterStyles.ERROR
+        )
         break;
       default:
-        this._toasterService.showNotification('Something went wrong!', 'error')
+        this._toasterService.showNotification(
+          ToasterMessages.SOMETHING_WENT_WRONG,
+          ToasterStyles.ERROR
+        )
         break;
     }
   }

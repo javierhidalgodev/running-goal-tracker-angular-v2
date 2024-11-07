@@ -1,6 +1,5 @@
-import { Component, effect, input, signal } from '@angular/core';
-import { Activity, GoalService } from '@services/goal.service';
-import { Subscription } from 'rxjs';
+import { Component, input } from '@angular/core';
+import { Activity } from '@models/activity.model';
 
 @Component({
   selector: 'app-activity-table',

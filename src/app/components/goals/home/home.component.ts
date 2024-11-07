@@ -13,7 +13,7 @@ export class HomeComponent {
   private _user: User | null = this._authService.getCurrentUser()
   goals = this._goalService.getGoals
   isLoading = this._goalService.isLoading
-  totalKM: number = 0
+  totalKM = 0
 
   constructor (
     private _authService: AuthService,

@@ -1,9 +1,12 @@
-import { Component, effect, input, signal } from '@angular/core';
+import { Component, effect, input, OnDestroy, signal } from '@angular/core';
 import { Router } from '@angular/router';
+import { Activity } from '@models/activity.model';
+import { Goal } from '@models/goal.model';
 import { AuthService } from '@services/auth.service';
 import { DialogService } from '@services/dialog.service';
-import { Activity, Goal, GoalService } from '@services/goal.service';
+import { GoalService } from '@services/goal.service';
 import { ToasterService } from '@services/toaster.service';
+import { ToasterMessages, ToasterStyles } from 'app/constants/toaster.constants';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -12,7 +15,7 @@ import { Subscription } from 'rxjs';
   styleUrl: './goal-details.component.scss',
   providers: [GoalService],
 })
-export class GoalDetailsComponent {
+export class GoalDetailsComponent implements OnDestroy {
   idTask = input<string>('')
   goal = signal<Goal | null>(null)
   activities = signal<Activity[]>([])
@@ -74,11 +77,17 @@ export class GoalDetailsComponent {
     if (confirmRes) {
       try {
         await this._goalService.deleteGoal(this.idTask())
-        this._toasterService.showNotification('Goal deleted!', 'info')
+        this._toasterService.showNotification(
+          ToasterMessages.GOAL_DELETED,
+          ToasterStyles.INFO
+        )
 
         this._router.navigate(['/goals'])
-      } catch (error) {
-        this._toasterService.showNotification('Something went wrong!', 'error')
+      } catch (_error) {
+        this._toasterService.showNotification(
+          ToasterMessages.SOMETHING_WENT_WRONG,
+          ToasterStyles.ERROR
+        )
       }
     }
   }

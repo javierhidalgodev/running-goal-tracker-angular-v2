@@ -18,8 +18,10 @@ import {
   isShorter,
   minValidator,
 } from '@utils/validators';
-import { GoalCreate, GoalForm, GoalService } from '@services/goal.service';
+import { GoalService } from '@services/goal.service';
 import { ToasterService } from '@services/toaster.service';
+import { ToasterMessages, ToasterStyles } from 'app/constants/toaster.constants';
+import { GoalCreate, GoalForm } from '@models/goal.model';
 
 @Component({
   selector: 'app-goal-form',
@@ -163,12 +165,15 @@ export class GoalFormComponent {
 
         await this._goalService.createGoal(newGoalCreate);
         this._toasterService.showNotification(
-          'Goal added succesfully!',
-          'success'
+          ToasterMessages.GOAL_ADDED,
+          ToasterStyles.SUCCESS
         );
         this._router.navigate(['/goals']);
       } catch (error) {
-        this._toasterService.showNotification('Something went wrong!', 'error');
+        this._toasterService.showNotification(
+          ToasterMessages.SOMETHING_WENT_WRONG,
+          ToasterStyles.ERROR
+        );
         console.error(error);
       } finally {
         this.loadingSignal.set(false);

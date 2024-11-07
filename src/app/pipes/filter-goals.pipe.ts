@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FilterGoalsPipe<T extends object> implements PipeTransform {
 
-  transform(array: T[], filter: keyof T, result: boolean): Array<T> {
+  transform(array: T[], filter: keyof T, result: boolean): T[] {
     return array.filter((item: T) => item[filter] === result);
   }
 

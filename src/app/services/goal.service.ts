@@ -6,44 +6,18 @@ import {
   collectionData,
   deleteDoc,
   doc,
-  docData,
   Firestore,
   getDoc,
   getDocs,
   orderBy,
   query,
-  Timestamp,
-  updateDoc,
   where,
   writeBatch,
 } from '@angular/fire/firestore';
-import { catchError, Observable, switchMap, tap, throwError } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 import { AuthService } from './auth.service';
-
-export interface Goal {
-  id: string;
-  title: string;
-  description: string;
-  startDate: Timestamp;
-  endDate: Timestamp;
-  km: number;
-  registrationDate: Timestamp;
-  complete: boolean;
-  userId: string;
-  total: number;
-}
-export type GoalCreate = Omit<Goal, 'id'>;
-export type GoalForm = Omit<GoalCreate, 'registrationDate' | 'complete'>;
-
-export interface Activity {
-  id: string;
-  goalId: string;
-  runDate: Timestamp;
-  km: number;
-  registrationDate: Timestamp;
-}
-export type ActivityCreate = Omit<Activity, 'id'>;
-export type ActivityForm = Omit<ActivityCreate, 'goalId' | 'registrationDate'>;
+import { Goal, GoalCreate } from '@models/goal.model';
+import { Activity, ActivityCreate } from '@models/activity.model';
 
 @Injectable()
 export class GoalService {

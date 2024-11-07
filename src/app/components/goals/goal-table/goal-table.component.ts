@@ -1,5 +1,5 @@
-import { Component, effect, input } from '@angular/core';
-import { Goal, GoalService } from '@services/goal.service';
+import { Component, input } from '@angular/core';
+import { Goal } from '@models/goal.model';
 
 @Component({
   selector: 'app-goal-table',
@@ -8,12 +8,4 @@ import { Goal, GoalService } from '@services/goal.service';
 })
 export class GoalTableComponent {
   goals = input.required<Goal[]>()
-
-  // constructor(
-  //   private _goalService: GoalService
-  // ) {
-  //   effect(() => {
-  //     console.log(this.goals())
-  //   })
-  // }
 }

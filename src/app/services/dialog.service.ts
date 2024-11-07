@@ -1,7 +1,7 @@
-import { Dialog } from '@angular/cdk/dialog'
+import { Dialog } from '@angular/cdk/dialog';
 import { Injectable } from '@angular/core';
 import { DialogComponent } from '@components/dialog/dialog.component';
-import { first, firstValueFrom, Subscription } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

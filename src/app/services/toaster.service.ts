@@ -2,9 +2,7 @@ import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ComponentRef, Injectable } from '@angular/core';
 import { NotificationComponent } from '@components/notification/notification.component';
-
-export type TOASTER_MESSAGES = 'Network request failed' | 'Goal added succesfully!' | 'Activity added succesfully!' | 'Goal deleted!' | 'Activity added succesfully' | 'Account created successfully' | 'Something went wrong!' | 'Invalid credentials' | 'This email address is already in use' | 'Session has expired'
-export type TOASTER_STYLES = 'error' | 'success' | 'info'
+import { ToasterMessages, ToasterStyles } from 'app/constants/toaster.constants';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +25,7 @@ export class ToasterService {
     })
   }
 
-  showNotification(message: TOASTER_MESSAGES, style: TOASTER_STYLES): void {
+  showNotification(message: ToasterMessages, style: ToasterStyles): void {
     if(!this._overlayRef) {
       this._overlayRef = this._createOverlay()
     }

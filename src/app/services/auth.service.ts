@@ -15,7 +15,7 @@ export class AuthService {
     this.authStateChanged()
   }
 
-  get authState$(): Observable<any> {
+  get authState$(): Observable<unknown> {
     return authState(this._auth)
   }
 

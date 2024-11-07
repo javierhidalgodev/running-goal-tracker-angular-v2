@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { isRequired, hasEmailError } from '@utils/validators';
 import { AuthService } from '@services/auth.service';
 import { ToasterService } from '@services/toaster.service';
+import { ToasterMessages, ToasterStyles } from 'app/constants/toaster.constants';
 
 @Component({
   selector: 'app-signup',
@@ -45,11 +46,17 @@ export class SignupComponent {
     
     try {
       await this._authService.signUp({ email, password })
-      this._toasterService.showNotification('Account created successfully', 'success')
+      this._toasterService.showNotification(
+        ToasterMessages.ACCOUNT_CREATED,
+        ToasterStyles.SUCCESS
+      )
       this._router.navigate(['auth/sign-in'])
     } catch (error) {
-      this._toasterService.showNotification('This email address is already in use', 'error')
-      console.error('Something went wrong during create an account process')
+      this._toasterService.showNotification(
+        ToasterMessages.EMAIL_IN_USE,
+        ToasterStyles.ERROR
+      )
+      console.error(error)
     }
   }
 }

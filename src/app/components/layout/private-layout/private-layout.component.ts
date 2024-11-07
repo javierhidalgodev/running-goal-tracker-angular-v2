@@ -1,4 +1,4 @@
-import { Component, computed, effect, Renderer2, signal } from '@angular/core';
+import { Component, effect, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@services/auth.service';
 import { ResponsiveService } from '@services/responsive.service';
@@ -79,7 +79,7 @@ import { ResponsiveService } from '@services/responsive.service';
 })
 export default class PrivateLayoutComponent {
   smallScreen = this._responsiveService.isSmallScreen;
-  isMenuOpen: boolean = true;
+  isMenuOpen = true;
 
   constructor(
     private _authService: AuthService,
@@ -101,8 +101,8 @@ export default class PrivateLayoutComponent {
     return this._authService.getCurrentUser()?.email;
   }
 
-  handleClick(isMain: boolean = false) {
-    this.smallScreen() && isMain
+  handleClick(isMain = false) {
+    return this.smallScreen() && isMain
       ? (
         this.isMenuOpen && this.switchMenuStatus()
       )
@@ -122,7 +122,7 @@ export default class PrivateLayoutComponent {
   }
 
   async logout() {
-    const res = await this._authService.logout();
+    const _res = await this._authService.logout();
     this._router.navigate(['/auth/sign-in']);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, effect } from '@angular/core';
+import { Component } from '@angular/core';
 import { GoalService } from '@services/goal.service';
 
 @Component({

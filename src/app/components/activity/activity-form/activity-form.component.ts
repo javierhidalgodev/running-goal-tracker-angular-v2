@@ -17,14 +17,11 @@ import {
   invalidDate,
   dateRangeValidator,
 } from '@utils/validators';
-import {
-  ActivityCreate,
-  ActivityForm,
-  Goal,
-  GoalService,
-} from '@services/goal.service';
 import { ToasterService } from '@services/toaster.service';
-import { map, Subscription, take } from 'rxjs';
+import { GoalService } from '@services/goal.service';
+import { Goal } from '@models/goal.model';
+import { ActivityCreate, ActivityForm } from '@models/activity.model';
+import { ToasterMessages, ToasterStyles } from 'app/constants/toaster.constants';
 
 @Component({
   selector: 'app-activity-form',
@@ -136,15 +133,19 @@ export class ActivityFormComponent {
           total: this.goal()!.total + newActivityCreate.km,
           id: this.idTask()
         }
-        const res = await this._goalService.createActivityToGoal(newActivityCreate, updatedGoal)
+        
+        await this._goalService.createActivityToGoal(newActivityCreate, updatedGoal)
 
         this._toasterService.showNotification(
-          'Activity added succesfully!',
-          'success'
+          ToasterMessages.ACTIVITY_ADDED,
+          ToasterStyles.SUCCESS
         );
         this._router.navigate(['/goals', this.idTask()]);
       } catch (error) {
-        this._toasterService.showNotification('Something went wrong!', 'error');
+        this._toasterService.showNotification(
+          ToasterMessages.SOMETHING_WENT_WRONG,
+          ToasterStyles.ERROR
+        );
         console.error(error);
       } finally {
         this.savingSignal.set(false);
