@@ -18,11 +18,5 @@ export class DialogService {
     // Crea un observable que será usado para devolver solo el primer valor, y gestionar automáticamente la desuscripción.
     const source$ = dialogRef.closed
     return firstValueFrom(source$)
-   
-    // return new Promise((resolve) => {
-    //   dialogRef.closed.subscribe(result => {
-    //     resolve(result)
-    //   })
-    // })
   }
 }

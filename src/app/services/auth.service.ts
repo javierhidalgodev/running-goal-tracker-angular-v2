@@ -12,28 +12,7 @@ export class AuthService {
   constructor(
     private _auth: Auth
   ) {
-    // * 1. La sesión expira con la pestaña o la ventana del navegador
-    // ? También se puede configurar para que persista en memoria o en LOCAL
-    // this._auth.setPersistence(browserSessionPersistence)
-
-    // * 2. Controlamos el cambio en la autenticación, de tal manera que cuando se refresque el token comportamiento por defecto)
-    // * se comprobará que existe un usuario, y gracias a su tiempo de expiración, obtendremos un rango de tiempo que, sobrepasado
-    // * lance el cierre de sesión.
-    onAuthStateChanged(this._auth, () => {
-      const user = this.getCurrentUser()
-
-      if(user) {
-        user.getIdTokenResult()
-          .then(idTokenResult => {
-            const tokenExpirationTime = idTokenResult.expirationTime
-            const timeUntilExpiration = new Date(tokenExpirationTime).getTime() - new Date().getTime()
-
-            setTimeout(() => {
-              signOut(this._auth)
-            }, timeUntilExpiration)
-          })
-      }
-    })
+    this.authStateChanged()
   }
 
   get authState$(): Observable<any> {
@@ -62,5 +41,30 @@ export class AuthService {
 
   logout() {
     return signOut(this._auth)
+  }
+
+  authStateChanged() {
+    // * 1. La sesión expira con la pestaña o la ventana del navegador
+    // ? También se puede configurar para que persista en memoria o en LOCAL
+    // this._auth.setPersistence(browserSessionPersistence)
+
+    // * 2. Controlamos el cambio en la autenticación, de tal manera que cuando se refresque el token comportamiento por defecto)
+    // * se comprobará que existe un usuario, y gracias a su tiempo de expiración, obtendremos un rango de tiempo que, sobrepasado
+    // * lance el cierre de sesión.
+    onAuthStateChanged(this._auth, () => {
+      const user = this.getCurrentUser()
+
+      if (user) {
+        user.getIdTokenResult()
+          .then(idTokenResult => {
+            const tokenExpirationTime = idTokenResult.expirationTime
+            const timeUntilExpiration = new Date(tokenExpirationTime).getTime() - new Date().getTime()
+
+            setTimeout(() => {
+              signOut(this._auth)
+            }, timeUntilExpiration)
+          })
+      }
+    })
   }
 }

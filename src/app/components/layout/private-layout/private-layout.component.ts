@@ -78,7 +78,7 @@ import { ResponsiveService } from '@services/responsive.service';
   styleUrl: './private-layout.component.scss',
 })
 export default class PrivateLayoutComponent {
-  smallScreen = this._responsiveService.smallScreen;
+  smallScreen = this._responsiveService.isSmallScreen;
   isMenuOpen: boolean = true;
 
   constructor(

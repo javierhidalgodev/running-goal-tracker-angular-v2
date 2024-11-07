@@ -15,6 +15,7 @@ import {
   Timestamp,
   updateDoc,
   where,
+  writeBatch,
 } from '@angular/fire/firestore';
 import { catchError, Observable, switchMap, tap, throwError } from 'rxjs';
 import { AuthService } from './auth.service';
@@ -91,13 +92,6 @@ export class GoalService {
     return getDoc(docRef);
   }
 
-  getGoal(goalId: string) {
-    const docRef = doc(this._goalCollection, goalId);
-    const docData = getDoc(docRef);
-    // return docData(docRef) as Observable<Goal>
-    return docData;
-  }
-
   /**
    * Esta propiedad devuelve un Signal (a partir de un Observable) con los Goals o un array vacío
    * Además, tiene una operación intermedia que modifica otro Signal
@@ -126,15 +120,38 @@ export class GoalService {
     ),
     { initialValue: [] }
   );
-  // getGoals() {
-  //   return toSignal(collectionData(this._goalCollection) as Observable<Goal[] | { initialValue: [] }>)
-  // }
 
-  createActivityToGoal(activity: ActivityCreate) {
-    return addDoc(this._activityCollection, activity);
+  /**
+   * Se trata de un método que ejecuta una transacción de dos operaciones: guardar la actividad y actualizar el objetivo con sus valores recalculados. Ambas operaciones serán existosas solo si ambas se cumplen.
+   * 
+   * @param activity Objeto de la actividad para añadir
+   * @param updatedGoal Objeto del goal recalculado para actualizarlo siempre que la acción de añadir la actividad sea correcta
+   */
+  async createActivityToGoal(activity: ActivityCreate, updatedGoal: Goal) {
+    const docRefGoal = doc(this._goalCollection, updatedGoal.id);
+    const docRefActivity = doc(this._activityCollection)
+
+    const batch = writeBatch(this._fireStore)
+
+    batch.set(docRefActivity, activity)
+    batch.update(docRefGoal, { ...updatedGoal })
+
+    await batch.commit()
+
+    // try {
+    //   await this.updateGoal(updatedGoal)
+    // } catch (error) {
+    //   console.log(error)
+    // }
+    // return addDoc(this._activityCollection, activity);
   }
 
-  getActivities(goalId: string) {
+  // updateGoal(updatedGoal: Goal): Promise<void> {
+  //   const docRef = doc(this._goalCollection, updatedGoal.id);
+  //   return updateDoc(docRef, { total: updatedGoal.total, complete: updatedGoal.complete });
+  // }
+
+  getActivities(goalId: string): Observable<Activity[]> {
     const activitiesQuery = query(
       this._activityCollection,
       orderBy('runDate', 'desc'),
@@ -144,11 +161,5 @@ export class GoalService {
     return collectionData(activitiesQuery, { idField: 'id' }) as Observable<
       Activity[]
     >;
-  }
-
-  updateGoal(goalId: string, total: number, complete: boolean) {
-    const docRef = doc(this._goalCollection, goalId);
-
-    return updateDoc(docRef, { total, complete });
   }
 }

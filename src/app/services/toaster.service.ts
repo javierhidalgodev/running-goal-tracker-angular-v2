@@ -3,7 +3,7 @@ import { ComponentPortal } from '@angular/cdk/portal';
 import { ComponentRef, Injectable } from '@angular/core';
 import { NotificationComponent } from '@components/notification/notification.component';
 
-export type TOASTER_MESSAGES = 'Goal added succesfully!' | 'Activity added succesfully!' | 'Goal deleted!' | 'Activity added succesfully' | 'Account created successfully' | 'Something went wrong!' | 'Invalid credentials' | 'This email address is already in use' | 'Session has expired'
+export type TOASTER_MESSAGES = 'Network request failed' | 'Goal added succesfully!' | 'Activity added succesfully!' | 'Goal deleted!' | 'Activity added succesfully' | 'Account created successfully' | 'Something went wrong!' | 'Invalid credentials' | 'This email address is already in use' | 'Session has expired'
 export type TOASTER_STYLES = 'error' | 'success' | 'info'
 
 @Injectable({

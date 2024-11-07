@@ -88,7 +88,7 @@ Desde la página del perfil, se podrá borrar el mismo.
   - [x] Componente de formulario.
   - [x] Utilizar el servicio de goal o crear uno específico.
   - [x] Lógica. <span style="background-color: red; padding: 1px 3px; border-radius: 3px">Aún así habría que revisarlo</span>.
-  - [ ] Borrar todas las actividades al borrar la entrada.
+  - [x] Borrar todas las actividades al borrar la entrada.
 
   ### Sistema de notificaciones/toaster.
   - [x] Servicio.
@@ -139,9 +139,11 @@ Desde la página del perfil, se podrá borrar el mismo.
 - Modificación de las *rules* de `Firestore` para que solo el usuario creador pueda recuperar/modificar/eliminar:
   - [x] Resolver errores relacionados con las suscripciones
   - Goals:
-    - [x] Crear
+    - [x] Crear/Actualizar (añadimos campo de total que se recalcula cada ve que se añade una actividad)
     - [x] Obtener
     - [x] Eliminar
   - Actividades:
     - [x] Crear
     - [x] Obtener
+    - [x] Eliminar
+    - [ ] Actualizar (futuro)

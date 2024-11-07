@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { hasEmailError, isRequired } from '@utils/validators';
 import { AuthService } from '@services/auth.service';
 import { ToasterService } from '@services/toaster.service';
+import { FirebaseError } from '@angular/fire/app';
 
 @Component({
   selector: 'app-signin',
@@ -54,10 +55,25 @@ export class SigninComponent {
       await this._authService.singIn({ email, password })
       this._router.navigate(['home'])
     } catch (error) {
-      this._toasterService.showNotification('Invalid credentials', 'error')
-      // console.error('Something went wrong during login process')
+      this.handlerError(error as FirebaseError)
     } finally {
       this.isLoading.set(false)
+    }
+  }
+
+  handlerError(error: FirebaseError) {
+    console.log(error.code)
+
+    switch (error.code) {
+      case 'auth/network-request-failed':
+        this._toasterService.showNotification('Network request failed', 'error')
+        break;
+      case 'auth/invalid-credential':
+        this._toasterService.showNotification('Invalid credentials', 'error')
+        break;
+      default:
+        this._toasterService.showNotification('Something went wrong!', 'error')
+        break;
     }
   }
 }

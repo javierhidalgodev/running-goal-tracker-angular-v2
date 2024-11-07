@@ -43,7 +43,6 @@ export class GoalDetailsComponent {
         return;
       }
   
-      // console.log(goalSnapshot.data()['userId'] === this._auth.getCurrentUser()?.uid)
       this.goal.set(goalSnapshot.data() as Goal)
     } catch (error) {
       console.error(error)

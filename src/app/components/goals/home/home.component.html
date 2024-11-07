@@ -40,7 +40,7 @@
         <!-- @if((goals() | filterGoals: 'complete': false).length === 0) { -->
         <!-- <p class="text-7xl font-extrabold">0</p> -->
         <!-- } @else { -->
-        <p class="text-7xl font-extrabold max-sm:text-2xl">{{ goals() | reduce: 'km' }}</p>
+        <p class="text-7xl font-extrabold max-sm:text-2xl">{{ goals() | reduce: 'total' }}</p>
         <!-- } -->
         <p>Total KM</p>
     </div>

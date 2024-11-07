@@ -49,8 +49,6 @@ export class ActivityFormComponent {
   goal = signal<Goal | null>(null);
   savingSignal = signal(false);
 
-  private _activitiesSubscription$: Subscription = new Subscription
-
   constructor(
     private _fb: FormBuilder,
     private _goalService: GoalService,
@@ -108,8 +106,6 @@ export class ActivityFormComponent {
       const max = new Date(inputAtt.attributes.getNamedItem('max')!.value);
       const runDate = new Date(runDateControl.value);
 
-      // console.log(runDate < min, runDate > max)
-
       if (runDate < min || runDate > max) {
         runDateControl.setErrors({ dateRangeViolation: true });
       }
@@ -117,8 +113,6 @@ export class ActivityFormComponent {
   }
 
   async submitActivityForm() {
-    // console.log(this.activityForm.value)
-
     if (this.activityForm.valid) {
       this.savingSignal.set(true);
 
@@ -126,8 +120,8 @@ export class ActivityFormComponent {
         ...this.activityForm.value,
         runDate: Timestamp.fromDate(
           new Date(this.activityForm.get('runDate')!.value)
-        ),
-      };
+        )
+      }
 
       try {
         const newActivityCreate: ActivityCreate = {
@@ -136,14 +130,16 @@ export class ActivityFormComponent {
           goalId: this.idTask(),
         };
 
-        const res = await this._goalService.createActivityToGoal(
-          newActivityCreate
-        );
-        // console.log(res)
-        this.updateGoal();
+        const updatedGoal: Goal = {
+          ...this.goal()!,
+          complete: (newActivityCreate.km + this.goal()!.total) > this.goal()!.km,
+          total: this.goal()!.total + newActivityCreate.km,
+          id: this.idTask()
+        }
+        const res = await this._goalService.createActivityToGoal(newActivityCreate, updatedGoal)
 
         this._toasterService.showNotification(
-          'Goal added succesfully!',
+          'Activity added succesfully!',
           'success'
         );
         this._router.navigate(['/goals', this.idTask()]);
@@ -156,31 +152,7 @@ export class ActivityFormComponent {
     }
   }
 
-  async updateGoal() {
-    // const goal = await this._goalService.getGoalById(this.idTask())
-
-    this._activitiesSubscription$ = this._goalService
-      .getActivities(this.idTask())
-      .pipe(
-        take(1),
-        map((activities) => {
-          const total = activities.reduce((acc, curr) => acc + curr.km, 0);
-
-          try {
-            this._goalService.updateGoal(this.idTask(), total, total >= this.goal()!.km);
-          } catch (error) {
-            console.log(error);
-          }
-        })
-      )
-      .subscribe();
-  }
-
   navigate() {
     this._router.navigate([]);
-  }
-
-  ngOnDestroy(): void {
-    this._activitiesSubscription$.unsubscribe()
   }
 }
