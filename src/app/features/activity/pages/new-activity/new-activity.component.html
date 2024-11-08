@@ -1,0 +1,20 @@
+<a
+  class="w-fit font-semibold text-green-500 hover:text-green-600 rounded-md"
+  [routerLink]="goal() ? '/goals/' + goalIdParam() : '/goals'"
+>
+  {{ goal() ? "← Back to goal" : "← Back to goals" }}
+</a>
+
+<ng-container *ngIf="!isLoading(); else loading">
+  <ng-container *ngIf="goal() as goal; else goalNotFound">
+    <app-activity-form [goal]="goal"></app-activity-form>
+  </ng-container>
+
+  <ng-template #goalNotFound>
+    <p class="text-neutral-500">Goal not found</p>
+  </ng-template>
+</ng-container>
+
+<ng-template #loading>
+  <p>Loading...</p>
+</ng-template>

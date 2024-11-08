@@ -1,11 +1,4 @@
-import {
-  Component,
-  effect,
-  ElementRef,
-  input,
-  signal,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, input, signal, ViewChild } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -21,7 +14,10 @@ import { ToasterService } from '@services/toaster.service';
 import { GoalService } from '@services/goal.service';
 import { Goal } from '@models/goal.model';
 import { ActivityCreate, ActivityForm } from '@models/activity.model';
-import { ToasterMessages, ToasterStyles } from '@shared/constants/toaster.constants';
+import {
+  ToasterMessages,
+  ToasterStyles,
+} from '@shared/constants/toaster.constants';
 
 @Component({
   selector: 'app-activity-form',
@@ -40,10 +36,10 @@ export class ActivityFormComponent {
     km: ['', Validators.compose([Validators.required, Validators.min(1)])],
   });
 
-  idTask = input.required<string>();
+  // idTask = input.required<string>();
 
-  isLoading = signal<boolean>(true);
-  goal = signal<Goal | null>(null);
+  // isLoading = signal<boolean>(true);
+  goal = input.required<Goal>();
   savingSignal = signal(false);
 
   constructor(
@@ -52,32 +48,32 @@ export class ActivityFormComponent {
     private _router: Router,
     private _toasterService: ToasterService
   ) {
-    effect(() => {
-      const goalId = this.idTask();
-
-      if (goalId) {
-        this.fecthGoal(goalId);
-      }
-    });
+    // effect(() => {
+    //   const goalId = this.idTask();
+    //   if (goalId) {
+    //     this.fecthGoal(goalId);
+    //   }
+    // });
   }
 
-  async fecthGoal(goalId: string) {
-    try {
-      const docSnapshot = await this._goalService.getGoalById(goalId);
+  // async fecthGoal(goalId: string) {
+  //   try {
+  //     const docSnapshot = await this._goalService.getGoalById(goalId);
 
-      if (!docSnapshot.exists()) {
-        this.isLoading.set(false);
-        return;
-      }
+  //     if (!docSnapshot.exists()) {
+  //       this.isLoading.set(false);
+  //       return;
+  //     }
 
-      this.goal.set(docSnapshot.data() as Goal);
-      this.isLoading.set(false);
-    } catch (error) {
-      console.error(error);
-      this.isLoading.set(false);
-    }
-  }
+  //     this.goal.set(docSnapshot.data() as Goal);
+  //     this.isLoading.set(false);
+  //   } catch (error) {
+  //     console.error(error);
+  //     this.isLoading.set(false);
+  //   }
+  // }
 
+  // TODO: Mover validaciones fuera
   isRequired(field: FormFieldName) {
     return isRequired(field, this.activityForm);
   }
@@ -117,30 +113,33 @@ export class ActivityFormComponent {
         ...this.activityForm.value,
         runDate: Timestamp.fromDate(
           new Date(this.activityForm.get('runDate')!.value)
-        )
-      }
+        ),
+      };
 
       try {
         const newActivityCreate: ActivityCreate = {
           ...formValue,
           registrationDate: Timestamp.now(),
-          goalId: this.idTask(),
+          goalId: this.goal().id,
         };
 
         const updatedGoal: Goal = {
           ...this.goal()!,
-          complete: (newActivityCreate.km + this.goal()!.total) > this.goal()!.km,
+          complete: newActivityCreate.km + this.goal()!.total > this.goal()!.km,
           total: this.goal()!.total + newActivityCreate.km,
-          id: this.idTask()
-        }
-        
-        await this._goalService.createActivityToGoal(newActivityCreate, updatedGoal)
+          id: this.goal().id,
+        };
+
+        await this._goalService.createActivityToGoal(
+          newActivityCreate,
+          updatedGoal
+        );
 
         this._toasterService.showNotification(
           ToasterMessages.ACTIVITY_ADDED,
           ToasterStyles.SUCCESS
         );
-        this._router.navigate(['/goals', this.idTask()]);
+        this._router.navigate(['/goals', this.goal().id]);
       } catch (error) {
         this._toasterService.showNotification(
           ToasterMessages.SOMETHING_WENT_WRONG,

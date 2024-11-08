@@ -30,7 +30,7 @@ const routes: Routes = [
   },
   {
     canActivate: [privateGuard],
-    path: 'goals/:idTask/new-activity',
+    path: 'goals/:goalIdParam/new-activity',
     loadChildren: () => import('../activity/activity.module'),
   }
 ];

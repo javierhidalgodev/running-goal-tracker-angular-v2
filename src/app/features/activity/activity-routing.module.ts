@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ActivityFormComponent } from './activity-form/activity-form.component';
+import { NewActivityComponent } from './pages/new-activity/new-activity.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ActivityFormComponent
+    component: NewActivityComponent
   }
 ];
 

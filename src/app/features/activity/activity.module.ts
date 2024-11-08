@@ -6,12 +6,15 @@ import { ActivityFormComponent } from './activity-form/activity-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivityTableComponent } from './activity-table/activity-table.component';
 import { SharedModule } from '@shared/shared.module';
+import { NewActivityComponent } from './pages/new-activity/new-activity.component';
+import { GoalService } from '@core/services/goal.service';
 
 
 @NgModule({
   declarations: [
     ActivityFormComponent,
     ActivityTableComponent,
+    NewActivityComponent,
   ],
   imports: [
     CommonModule,
@@ -19,6 +22,9 @@ import { SharedModule } from '@shared/shared.module';
     FormsModule,
     ReactiveFormsModule,
     SharedModule
+  ],
+  providers: [
+    GoalService
   ],
   exports: [
     ActivityTableComponent

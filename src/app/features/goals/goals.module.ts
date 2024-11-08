@@ -20,6 +20,7 @@ import { GoalKmCoveredComponent } from './components/goal-resume/goal-km-covered
 import { GoalResumeComponent } from './components/goal-resume/goal-resume.component';
 import { HeaderComponent } from '@core/layout/private-layout/components/header/header.component';
 import { FooterComponent } from '@core/layout/private-layout/components/footer/footer.component';
+import { GoalService } from '@core/services/goal.service';
 
 const declarations = [
   GoalListComponent,
@@ -51,5 +52,6 @@ const imports = [
 @NgModule({
   declarations,
   imports,
+  providers: [GoalService]
 })
 export default class GoalsModule { }

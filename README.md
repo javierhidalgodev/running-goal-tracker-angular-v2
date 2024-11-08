@@ -122,6 +122,9 @@ Desde la página del perfil, se podrá borrar el mismo.
   - [ ] Manejar errores de NO CONEXIÓN con Firestore.
   - [x] Corrección del campo "description" en la verificación.
   - [x] Corrección del control de fechas. La entrada de una fecha de inicio condiciona la fecha de final y viceversa. <span style="background-color: blue; padding: 1px 3px; border-radius: 3px">Tiene una lógica un poco compleja. Habría que revisarla y simplificarla lo máximo posible.</span>
+  - [ ] Al borrar una actividad sin conexión, se queda haciendo peticiones y no resuelve el error.
+  - [x] Tras modularizar el layout, el footer vuelve de nuevo arriba.
+  - [ ] Los formularios y las tablas ¿podrían ser componentes únicos que se rendericen según la data?
 
   ### Revisión y refactorización del código:
 - [x] tsconfig.json:
@@ -158,4 +161,28 @@ Desde la página del perfil, se podrá borrar el mismo.
   - [x] IActivities
   - [x] IUsers
   - [x] CToasterMessages/Styles
-- Componentes
+- Estructura general del proyecto
+  - Core
+    - Auth
+    - Layout
+      - [x] Header
+      - [x] Footer
+      - [x] Modularización del layout
+    - Services
+  - Features
+    - Goals
+      - Pages/Views
+        - [x] List
+        - [x] Details
+        - [x] New Goal
+      - Components
+        - [x] Table
+        - [x] Goal resume (componentes internos)
+        - [x] Form
+    - Activities
+      - Pages/Views
+        - [x] New Activity
+      - Components
+        - [x] Activity Form
+        - [x] Activity Table
+  - Shared
