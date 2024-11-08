@@ -147,3 +147,15 @@ Desde la página del perfil, se podrá borrar el mismo.
     - [x] Obtener
     - [x] Eliminar
     - [ ] Actualizar (futuro)
+- Servicios:
+  - [x] Auth
+  - [x] Goals
+  - [x] Responsive
+  - [x] Toaster
+  - [x] Dialog
+- Modelos/Constantes
+  - [x] IGoals
+  - [x] IActivities
+  - [x] IUsers
+  - [x] CToasterMessages/Styles
+- Componentes

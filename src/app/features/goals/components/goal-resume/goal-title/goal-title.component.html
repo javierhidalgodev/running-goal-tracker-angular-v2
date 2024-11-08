@@ -1,0 +1,10 @@
+<div>
+	<small class="text-neutral-400">Title</small>
+	<h1
+		class="flex items-center gap-3 text-2xl font-bold max-[400px]:flex-col max-[400px]:items-start max-[400px]:gap-1">
+		{{ goal().title }}
+		<span
+			[ngClass]="[goal().complete ? 'bg-green-600' : 'bg-yellow-600', 'bg-green-600 text-xs font-medium me-2 px-2.5 py-0.5 rounded']">{{
+			goal().complete ? 'Completed' : 'In progress' }}</span>
+	</h1>
+</div>

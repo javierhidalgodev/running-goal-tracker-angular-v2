@@ -1,0 +1,11 @@
+<h1 class="text-2xl font-bold">GOAL LIST</h1>
+<a class="w-fit px-4 py-2 text-sm font-semibold bg-green-600 hover:bg-green-700 rounded-md text-nowrap"
+    routerLink="/new-goal">NEW GOAL</a>
+
+<ng-container *ngIf="!isLoading(); else loading">
+    <app-goal-table [goals]="goals()" />
+</ng-container>
+
+<ng-template #loading>
+    <p class="font-bold text-neutral-400 text-center">Loading...</p>
+</ng-template>

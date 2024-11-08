@@ -1,0 +1,32 @@
+<section class="flex flex-col gap-4">
+  <a class="font-semibold text-green-500 hover:text-green-600 rounded-md" routerLink="/goals">← Back to goals</a>
+
+  <ng-container *ngIf="!isLoading(); else loading">
+    <ng-container *ngIf="goal; else noGoalFound">
+      <app-goal-resume [goal]="goal!" />
+      <div class="flex flex-col gap-4">
+        <small class="text-neutral-400">Activities</small>
+        <app-activity-table [activities]="activities()" />
+      </div>
+
+      <div class="actions flex justify-between gap-2 max-[400px]:flex-col">
+        <button
+          class="bg-green-600 hover:bg-green-700 disabled:cursor-not-allowed disabled:bg-neutral-500 disabled:text-neutral-400"
+          (click)="navigateToActivityForm()" [disabled]="goal!.complete">
+          {{ this.goal.complete ? 'Completed' : 'Add activity' }}
+        </button>
+        <button class="bg-red-600 hover:bg-red-700" (click)="deleteGoal()">
+          Delete
+        </button>
+      </div>
+    </ng-container>
+
+    <ng-template #noGoalFound>
+      <p class="text-neutral-500">Goal not found</p>
+    </ng-template>
+  </ng-container>
+
+  <ng-template #loading>
+    <p>Loading...</p>
+  </ng-template>
+</section>

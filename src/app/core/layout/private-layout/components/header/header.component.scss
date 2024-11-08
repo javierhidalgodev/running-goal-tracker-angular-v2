@@ -1,0 +1,7 @@
+.mobile-styles {
+	@apply absolute w-full h-screen	flex-col justify-center items-center top-full left-0 bg-neutral-800/80 backdrop-blur-sm;
+
+	&>* {
+		@apply w-full px-4 py-2 hover:bg-green-600 text-2xl text-center;
+	}
+}

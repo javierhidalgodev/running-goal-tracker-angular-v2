@@ -1,0 +1,9 @@
+<app-goal-title [goal]="goal()" />
+
+@if (goal().description) {
+<app-goal-description [goal]="goal()" />
+}
+
+<app-goal-dates-range [goal]="goal()" />
+
+<app-goal-km-covered [goal]="goal()" />
