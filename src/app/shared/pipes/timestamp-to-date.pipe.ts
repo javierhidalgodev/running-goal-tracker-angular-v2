@@ -6,8 +6,8 @@ import { Timestamp } from '@angular/fire/firestore';
 })
 export class TimestampToDatePipe implements PipeTransform {
 
-  transform(ts: Timestamp): string {
-    return ts.toDate().toDateString();
+  transform(timestampInput: Timestamp): string {
+    return timestampInput.toDate().toDateString();
   }
 
 }

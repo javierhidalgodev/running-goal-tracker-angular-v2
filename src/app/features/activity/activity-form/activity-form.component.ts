@@ -9,7 +9,7 @@ import {
   minValidator,
   invalidDate,
   dateRangeValidator,
-} from '@utils/validators';
+} from '@shared/utils/validators.utils';
 import { ToasterService } from '@services/toaster.service';
 import { GoalService } from '@services/goal.service';
 import { Goal } from '@models/goal.model';
@@ -18,6 +18,8 @@ import {
   ToasterMessages,
   ToasterStyles,
 } from '@shared/constants/toaster.constants';
+import { timestampFromDate } from '@shared/utils/transformations.utils';
+import { isGoalComplete } from '@shared/utils/calculations.utils';
 
 @Component({
   selector: 'app-activity-form',
@@ -36,9 +38,6 @@ export class ActivityFormComponent {
     km: ['', Validators.compose([Validators.required, Validators.min(1)])],
   });
 
-  // idTask = input.required<string>();
-
-  // isLoading = signal<boolean>(true);
   goal = input.required<Goal>();
   savingSignal = signal(false);
 
@@ -47,31 +46,7 @@ export class ActivityFormComponent {
     private _goalService: GoalService,
     private _router: Router,
     private _toasterService: ToasterService
-  ) {
-    // effect(() => {
-    //   const goalId = this.idTask();
-    //   if (goalId) {
-    //     this.fecthGoal(goalId);
-    //   }
-    // });
-  }
-
-  // async fecthGoal(goalId: string) {
-  //   try {
-  //     const docSnapshot = await this._goalService.getGoalById(goalId);
-
-  //     if (!docSnapshot.exists()) {
-  //       this.isLoading.set(false);
-  //       return;
-  //     }
-
-  //     this.goal.set(docSnapshot.data() as Goal);
-  //     this.isLoading.set(false);
-  //   } catch (error) {
-  //     console.error(error);
-  //     this.isLoading.set(false);
-  //   }
-  // }
+  ) { }
 
   // TODO: Mover validaciones fuera
   isRequired(field: FormFieldName) {
@@ -111,9 +86,7 @@ export class ActivityFormComponent {
 
       const formValue: ActivityForm = {
         ...this.activityForm.value,
-        runDate: Timestamp.fromDate(
-          new Date(this.activityForm.get('runDate')!.value)
-        ),
+        runDate: timestampFromDate(this.activityForm.get('runDate')!.value)
       };
 
       try {
@@ -125,7 +98,7 @@ export class ActivityFormComponent {
 
         const updatedGoal: Goal = {
           ...this.goal()!,
-          complete: newActivityCreate.km + this.goal()!.total > this.goal()!.km,
+          complete: isGoalComplete(newActivityCreate.km, this.goal()),
           total: this.goal()!.total + newActivityCreate.km,
           id: this.goal().id,
         };

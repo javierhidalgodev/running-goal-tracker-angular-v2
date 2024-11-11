@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { hasEmailError, isRequired } from '@utils/validators';
+import { hasEmailError, isRequired } from '@shared/utils/validators.utils';
 import { AuthService } from '@services/auth.service';
 import { ToasterService } from '@services/toaster.service';
 import { FirebaseError } from '@angular/fire/app';

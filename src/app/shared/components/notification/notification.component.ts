@@ -6,7 +6,6 @@ import { Component, Input } from '@angular/core';
   styleUrl: './notification.component.scss'
 })
 export class NotificationComponent {
-  // message = input.required<string>()
   @Input() message = ''
   @Input() style: '' | 'success' | 'error' | 'info' = ''
 }

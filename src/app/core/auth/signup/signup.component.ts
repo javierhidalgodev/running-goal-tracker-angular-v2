@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { isRequired, hasEmailError } from '@utils/validators';
+import { isRequired, hasEmailError } from '@shared/utils/validators.utils';
 import { AuthService } from '@services/auth.service';
 import { ToasterService } from '@services/toaster.service';
 import { ToasterMessages, ToasterStyles } from '@shared/constants/toaster.constants';

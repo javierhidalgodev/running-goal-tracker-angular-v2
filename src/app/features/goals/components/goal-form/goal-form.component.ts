@@ -17,11 +17,12 @@ import {
   isRequired,
   isShorter,
   minValidator,
-} from '@utils/validators';
+} from '@shared/utils/validators.utils';
 import { GoalService } from '@services/goal.service';
 import { ToasterService } from '@services/toaster.service';
 import { ToasterMessages, ToasterStyles } from '@shared/constants/toaster.constants';
 import { GoalCreate, GoalForm } from '@models/goal.model';
+import { timestampFromDate } from '@shared/utils/transformations.utils';
 
 @Component({
   selector: 'app-goal-form',
@@ -61,9 +62,7 @@ export class GoalFormComponent {
     private _goalService: GoalService,
     private _toasterService: ToasterService,
     private _router: Router
-  ) {
-    // console.log('goal-form prepared')
-  }
+  ) { }
 
   isRequired(field: FormFieldName) {
     return isRequired(field, this.goalForm);
@@ -93,10 +92,7 @@ export class GoalFormComponent {
     const control = this.goalForm.get(field);
 
     if (control) {
-      // ? Parece que me lo da en el formato exacto necesario, no habría que transformarlo
       const date = control.value;
-
-      // const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${(date.getDate).toString().padStart(2, '0')}`
 
       if (field === 'startDate') {
         this._renderer2.setAttribute(
@@ -140,19 +136,13 @@ export class GoalFormComponent {
   }
 
   async submitGoalForm() {
-    // console.log(this.goalForm.value)
-
     if (this.goalForm.valid) {
       this.loadingSignal.set(true);
 
       const formValue: GoalForm = {
         ...this.goalForm.value,
-        startDate: Timestamp.fromDate(
-          new Date(this.goalForm.get('startDate')!.value)
-        ),
-        endDate: Timestamp.fromDate(
-          new Date(this.goalForm.get('endDate')!.value)
-        ),
+        startDate: timestampFromDate(this.goalForm.get('startDate')!.value),
+        endDate: timestampFromDate(this.goalForm.get('endDate')!.value)
       };
 
       try {

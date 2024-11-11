@@ -103,7 +103,7 @@ Desde la página del perfil, se podrá borrar el mismo.
   ### Página de Home.
   - [x] Componente/UI.
   - [x] Lógica.
-  - [ ] Animaciones de números.
+  - [ ] Animaciones de números ¿?.
 
   ### Mobile Responsive.
   - [x] Goal List.
@@ -125,6 +125,7 @@ Desde la página del perfil, se podrá borrar el mismo.
   - [ ] Al borrar una actividad sin conexión, se queda haciendo peticiones y no resuelve el error.
   - [x] Tras modularizar el layout, el footer vuelve de nuevo arriba.
   - [ ] Los formularios y las tablas ¿podrían ser componentes únicos que se rendericen según la data?
+  - [ ] Sacar validaciones del componente de formulario de actividades.
 
   ### Revisión y refactorización del código:
 - [x] tsconfig.json:

@@ -102,6 +102,7 @@ export class GoalService {
    * @param updatedGoal Objeto del goal recalculado para actualizarlo siempre que la acción de añadir la actividad sea correcta
    */
   async createActivityToGoal(activity: ActivityCreate, updatedGoal: Goal) {
+    console.log(activity, updatedGoal)
     const docRefGoal = doc(this._goalCollection, updatedGoal.id);
     const docRefActivity = doc(this._activityCollection)
 
