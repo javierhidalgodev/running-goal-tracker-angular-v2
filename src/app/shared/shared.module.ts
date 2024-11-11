@@ -7,8 +7,10 @@ import { ReducePipe } from '@pipes/reduce.pipe';
 import { NotificationComponent } from '@shared/components/notification/notification.component';
 import { ToasterComponent } from '@shared/components/toaster/toaster.component';
 import { DialogComponent } from '@shared/components/dialog/dialog.component';
+import { TooltipDirective } from './directives/tooltip/tooltip.directive';
+import { TooltipComponent } from './components/tooltip/tooltip.component';
 
-const declarationsExports = [NotificationComponent, ToasterComponent, DialogComponent, TimestampToDatePipe, FormatDateToInputMinPipe, FilterGoalsPipe, ReducePipe]
+const declarationsExports = [NotificationComponent, ToasterComponent, DialogComponent, TooltipComponent, TimestampToDatePipe, FormatDateToInputMinPipe, FilterGoalsPipe, ReducePipe, TooltipDirective]
 
 const exports = []
 

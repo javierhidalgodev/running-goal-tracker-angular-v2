@@ -49,4 +49,8 @@ export class HeaderComponent {
     const _res = await this._authService.logout();
     this._router.navigate(['/auth/sign-in']);
   }
+
+  get currentUser() {
+    return this._authService.getCurrentUser()?.email
+  }
 }
