@@ -4,11 +4,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
-import { getFirestore, initializeFirestore, persistentLocalCache, provideFirestore } from '@angular/fire/firestore';
+import { initializeFirestore, provideFirestore } from '@angular/fire/firestore';
 import { environment } from '../environments/environment.development';
 import { CdkPortalOutlet } from '@angular/cdk/portal';
 import { SharedModule } from '@shared/shared.module';
-import { ENABLE_PERSISTENCE } from '@angular/fire/compat/firestore'
 
 const imports = [
   BrowserModule,
@@ -27,10 +26,7 @@ const imports = [
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() =>
       initializeFirestore(
-        getApp(),
-        {
-          localCache: persistentLocalCache() 
-        }
+        getApp(), { }
       )
     )
   ],

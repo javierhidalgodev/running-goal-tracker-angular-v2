@@ -18,6 +18,7 @@ import { catchError, Observable, tap, throwError } from 'rxjs';
 import { AuthService } from './auth.service';
 import { Goal, GoalCreate } from '@models/goal.model';
 import { Activity, ActivityCreate } from '@models/activity.model';
+import { NetworkService } from './network.service';
 
 @Injectable()
 export class GoalService {
@@ -28,7 +29,8 @@ export class GoalService {
 
   constructor(
     private _fireStore: Firestore,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _networkService: NetworkService,
   ) {}
 
   createGoal(goal: GoalCreate) {
@@ -39,6 +41,11 @@ export class GoalService {
   }
 
   async deleteGoal(goalId: string) {
+    console.log(this._networkService.networkStatus)
+    if(!this._networkService.networkStatus) {
+      throw Error('network error')
+    }
+
     await this._deleteActivitiesFromGoal(goalId);
 
     const docRef = doc(this._goalCollection, goalId);

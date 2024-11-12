@@ -6,7 +6,10 @@ import { AuthService } from '@services/auth.service';
 import { DialogService } from '@services/dialog.service';
 import { GoalService } from '@services/goal.service';
 import { ToasterService } from '@services/toaster.service';
-import { ToasterMessages, ToasterStyles } from '@shared/constants/toaster.constants';
+import {
+  ToasterMessages,
+  ToasterStyles,
+} from '@shared/constants/toaster.constants';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -16,11 +19,11 @@ import { Subscription } from 'rxjs';
   providers: [GoalService],
 })
 export class GoalDetailsComponent implements OnDestroy {
-  idTask = input<string>('')
-  goal: Goal | null = null
-  activities = signal<Activity[]>([])
-  private _activitiesSubscription$: Subscription = new Subscription()
-  isLoading = this._goalService.isLoading
+  idTask = input<string>('');
+  goal: Goal | null = null;
+  activities = signal<Activity[]>([]);
+  private _activitiesSubscription$: Subscription = new Subscription();
+  isLoading = this._goalService.isLoading;
 
   constructor(
     private _router: Router,
@@ -31,72 +34,74 @@ export class GoalDetailsComponent implements OnDestroy {
   ) {
     effect(() => {
       if (this.idTask()) {
-        this.getGoal()
-        this.getActivities()
+        this.getGoal();
+        this.getActivities();
       }
-    })
+    });
   }
 
   async getGoal() {
     try {
-      const goalSnapshot = await this._goalService.getGoalById(this.idTask())
-  
+      const goalSnapshot = await this._goalService.getGoalById(this.idTask());
+
       if (!goalSnapshot.exists()) {
-        this.isLoading.set(false)
+        this.isLoading.set(false);
         return;
       }
-  
-      this.goal = goalSnapshot.data() as Goal
+
+      this.goal = goalSnapshot.data() as Goal;
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   }
 
   getActivities() {
-    this._activitiesSubscription$ = this._goalService.getActivities(this.idTask()).subscribe({
-      next: activities => {
-        this.activities.set(activities)
-      },
-      error: error => {
-        console.log(error)
-      },
-      complete: () => {
-        console.log('Complete')
-      }
-    }
-    )
+    this._activitiesSubscription$ = this._goalService
+      .getActivities(this.idTask())
+      .subscribe({
+        next: (activities) => {
+          this.activities.set(activities);
+        },
+        error: (error) => {
+          console.log(error);
+        },
+        complete: () => {
+          console.log('Complete');
+        },
+      });
   }
 
   goalTotal() {
-    return this.activities().reduce((prev, curr) => prev + curr.km, 0)
+    return this.activities().reduce((prev, curr) => prev + curr.km, 0);
   }
 
   async deleteGoal() {
-    const confirmRes = await this._dialogService.openDialog()
-    this._activitiesSubscription$.unsubscribe()
+    const confirmRes = await this._dialogService.openDialog();
+    this._activitiesSubscription$.unsubscribe();
     if (confirmRes) {
       try {
-        await this._goalService.deleteGoal(this.idTask())
+        await this._goalService.deleteGoal(this.idTask());
         this._toasterService.showNotification(
           ToasterMessages.GOAL_DELETED,
           ToasterStyles.INFO
-        )
+        );
 
-        this._router.navigate(['/goals'])
+        this._router.navigate(['/goals']);
       } catch (_error) {
+        console.log(_error)
         this._toasterService.showNotification(
           ToasterMessages.SOMETHING_WENT_WRONG,
           ToasterStyles.ERROR
-        )
+        );
       }
     }
   }
 
   navigateToActivityForm() {
-    this._router.navigate(['/goals', this.idTask(), 'new-activity'])
+    this._router.navigate(['/goals', this.idTask(), 'new-activity']);
   }
 
   ngOnDestroy(): void {
-    this._activitiesSubscription$.unsubscribe()
+    this._activitiesSubscription$.unsubscribe();
   }
 }
