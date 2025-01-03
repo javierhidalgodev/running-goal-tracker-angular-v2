@@ -18,7 +18,7 @@ export class NewActivityComponent {
   ) {
     effect(() => {
       const goalId = this.goalIdParam();
-      console.log(goalId)
+      // console.log(goalId)
 
       if (goalId) {
         this.fecthGoal(goalId);
@@ -29,7 +29,7 @@ export class NewActivityComponent {
   async fecthGoal(goalId: string) {
     try {
       const docSnapshot = await this._goalService.getGoalById(goalId);
-      console.log(docSnapshot.id)
+      // console.log(docSnapshot.id)
 
       if (!docSnapshot.exists()) {
         // this.isLoading.set(false);

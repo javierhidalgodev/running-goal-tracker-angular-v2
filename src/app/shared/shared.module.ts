@@ -9,14 +9,27 @@ import { ToasterComponent } from '@shared/components/toaster/toaster.component';
 import { DialogComponent } from '@shared/components/dialog/dialog.component';
 import { TooltipDirective } from './directives/tooltip/tooltip.directive';
 import { TooltipComponent } from './components/tooltip/tooltip.component';
+import { FooterComponent } from '@shared/components/footer/footer.component';
+import { HeaderComponent } from '@shared/components/header/header.component';
+import { RouterModule } from '@angular/router';
 
-const declarationsExports = [NotificationComponent, ToasterComponent, DialogComponent, TooltipComponent, TimestampToDatePipe, FormatDateToInputMinPipe, FilterGoalsPipe, ReducePipe, TooltipDirective]
-
-const exports = []
+const declarationsExports = [
+  HeaderComponent,
+  FooterComponent,
+  NotificationComponent,
+  ToasterComponent,
+  DialogComponent,
+  TooltipComponent,
+  TimestampToDatePipe,
+  FormatDateToInputMinPipe,
+  FilterGoalsPipe,
+  ReducePipe,
+  TooltipDirective
+]
 
 @NgModule({
   declarations: declarationsExports,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   exports: declarationsExports
 })
 export class SharedModule { }

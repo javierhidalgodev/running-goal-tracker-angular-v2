@@ -6,6 +6,7 @@ import { AuthService } from '@services/auth.service';
 import { ToasterService } from '@services/toaster.service';
 import { FirebaseError } from '@angular/fire/app';
 import { ToasterMessages, ToasterStyles } from '@shared/constants/toaster.constants';
+const TitleSVG = '../../../../../public/g5'
 
 @Component({
   selector: 'app-signin',
@@ -14,6 +15,7 @@ import { ToasterMessages, ToasterStyles } from '@shared/constants/toaster.consta
 })
 export class SigninComponent {
   isLoading = this._authService.isLoading
+  titleLogo = TitleSVG
 
   signInForm: FormGroup = this._fb.group({
     email: ['', Validators.compose([
@@ -54,7 +56,7 @@ export class SigninComponent {
 
     try {
       await this._authService.singIn({ email, password })
-      this._router.navigate(['home'])
+      this._router.navigate(['dashboard'])
     } catch (error) {
       this.handlerError(error as FirebaseError)
     } finally {

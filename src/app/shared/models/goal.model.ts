@@ -10,6 +10,7 @@ export interface Goal {
     complete: boolean;
     userId: string;
     total: number;
+    timezone?: string
   }
   export type GoalCreate = Omit<Goal, 'id'>;
   export type GoalForm = Omit<GoalCreate, 'registrationDate' | 'complete'>;

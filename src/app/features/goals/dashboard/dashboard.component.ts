@@ -5,11 +5,11 @@ import { GoalService } from '@services/goal.service';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
+  templateUrl: './dashboard.component.html',
+  styleUrl: './dashboard.component.scss',
   providers: [GoalService]
 })
-export class HomeComponent {
+export class DashboardComponent {
   private _user: User | null = this._authService.getCurrentUser()
   goals = this._goalService.getGoals
   isLoading = this._goalService.isLoading

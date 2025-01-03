@@ -9,7 +9,7 @@ import { GoalTableComponent } from './components/goal-table/goal-table.component
 import { GoalDetailsComponent } from './pages/goal-details/goal-details.component';
 import ActivityModule from '@features/activity/activity.module';
 import { SharedModule } from '@shared/shared.module';
-import { HomeComponent } from './home/home.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { CdkMenuModule } from '@angular/cdk/menu'
 import PrivateLayoutComponent from '@core/layout/private-layout/private-layout.component';
 import { NewGoalComponent } from './pages/new-goal/new-goal.component';
@@ -18,8 +18,6 @@ import { GoalDescriptionComponent } from './components/goal-resume/goal-descript
 import { GoalDatesRangeComponent } from './components/goal-resume/goal-dates-range/goal-dates-range.component';
 import { GoalKmCoveredComponent } from './components/goal-resume/goal-km-covered/goal-km-covered.component';
 import { GoalResumeComponent } from './components/goal-resume/goal-resume.component';
-import { HeaderComponent } from '@core/layout/private-layout/components/header/header.component';
-import { FooterComponent } from '@core/layout/private-layout/components/footer/footer.component';
 import { GoalService } from '@core/services/goal.service';
 
 const declarations = [
@@ -33,10 +31,8 @@ const declarations = [
   GoalDatesRangeComponent,
   GoalKmCoveredComponent,
   GoalTableComponent,
-  HomeComponent,
-  PrivateLayoutComponent,
-  HeaderComponent,
-  FooterComponent,
+  DashboardComponent,
+  PrivateLayoutComponent
 ]
 
 const imports = [

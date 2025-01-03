@@ -46,8 +46,9 @@ export class HeaderComponent {
   }
 
   async logout() {
+    this.switchMenuStatus()
     const _res = await this._authService.logout();
-    this._router.navigate(['/auth/sign-in']);
+    this._router.navigate(['/home']);
   }
 
   get currentUser() {

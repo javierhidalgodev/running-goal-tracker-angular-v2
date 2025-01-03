@@ -19,3 +19,7 @@ th, td {
 		text-left
 		px-4
 }
+
+.active {
+	@apply text-green-600
+}

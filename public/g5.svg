@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="156.69963"
+   height="8.5045776"
+   viewBox="0 0 156.69963 8.5045776"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs id="defs1">
+    <style>
+      @font-face {
+        font-family: 'Inter';
+        src: url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+      }
+      #text1 {
+        font-family: 'Inter', sans-serif;
+      }
+    </style>
+  </defs>
+  <g
+     id="layer1"
+     transform="translate(276.14227,79.726326)">
+    <g
+       id="g5"
+       transform="matrix(0.31709345,0,0,0.31709345,-165.9852,-105.42247)">
+      <text
+         xml:space="preserve"
+         style="font-size:37.7752px;fill:#f44336;stroke-width:3.14794"
+         x="-348.52948"
+         y="107.4036"
+         id="text1"><tspan
+           id="tspan1"
+           x="-348.52948"
+           y="107.4036"
+           style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Archivo;-inkscape-font-specification:'Archivo Bold Italic';fill:#000000;fill-opacity:1;stroke-width:3.14794">RUNNING GOAL TRACK    R</tspan></text>
+      <g
+         id="g4"
+         transform="matrix(0.87547895,0,-0.13618256,1.6763248,24.393795,-56.422523)">
+        <path
+           style="fill:#008000;fill-opacity:1"
+           d="m 96.521101,82.26929 h 23.130739 l -0.92831,5.15114 -23.115999,0.004 z"
+           id="path4" />
+        <path
+           style="fill:#ffcc00;fill-opacity:1"
+           d="m 95.600161,87.42243 h 23.130749 l -0.92831,5.15114 -23.115999,0.004 z"
+           id="path4-8" />
+        <path
+           style="fill:#d40000;fill-opacity:1"
+           d="m 94.679221,92.57557 h 23.130749 l -0.92831,5.15114 -23.115999,0.004 z"
+           id="path4-8-5" />
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,7 +1,6 @@
-<header [ngClass]="[
-        isSmallScreen() ? 'absolute top-0 z-50' : 'relative',
-        'w-full h-auto p-3 flex items-center bg-neutral-900'
-      ]">
+<header ngClass="absolute top-0 left-0 z-50
+        w-full h-auto p-3 flex items-center bg-neutral-900
+      ">
 	<nav class="w-full flex items-center gap-4">
 		<button [ngClass]="[isSmallScreen() ? '' : 'hidden']" (click)="switchMenuStatus()">
 			<svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
@@ -10,19 +9,21 @@
 			</svg>
 		</button>
 
-		<a routerLink="/home"
-			[ngClass]="[isSmallScreen() ? 'text-lg' : 'text-xl', 'font-extrabold italic hover:text-green-600']"
-			(click)="handleClick(true)">RUNNING GOALS TRACKER</a>
+		<a  routerLink="home"
+			(click)="handleClick(true)">
+			<img src="./logo-text-white.svg" alt="" srcset="">
+		</a>
 		<div [ngClass]="[
             isSmallScreen()
               ? 'mobile-styles'
-              : 'flex-row grow items-center gap-4 [&>a:hover]:text-green-600',
+              : 'flex-row ml-auto text-xs md:text-base items-center gap-4 [&>a:hover]:text-green-600 ',
             isMenuOpen ? 'flex' : 'hidden',
             'flex [&>a]:font-medium [&>a]:italic'
           ]">
 			<!-- <span [ngClass]="isSmallScreen() ? 'hidden' : ''">|</span> -->
-			<a routerLink="goals" (click)="handleClick()">GOAL LIST</a>
-			<a routerLink="/new-goal" (click)="handleClick()">NEW GOAL</a>
+			<a routerLink="dashboard" routerLinkActive="active" (click)="handleClick()">DASHBOARD</a>
+			<a routerLink="goals" routerLinkActive="active" (click)="handleClick()">GOAL LIST</a>
+			<a routerLink="new-goal" routerLinkActive="active" (click)="handleClick()">NEW GOAL</a>
 			<!-- <p
           class="max-sm:hidden mr-0 ml-auto bg-blue-600 p-2 py-1 text-xs rounded-full"
         >
@@ -31,7 +32,7 @@
 			<button [ngClass]="[
               isSmallScreen()
                 ? 'uppercase italic font-bold text-green-400 hover:text-white'
-                : 'ml-auto mr-0 py-1.5 px-4 bg-green-600 hover:bg-green-700 text-sm rounded-md',
+                : 'py-1.5 px-4 bg-green-600 hover:bg-green-700 text-sm rounded-md',
               'w-fit'
             ]" (click)="logout()"
 			appTooltip

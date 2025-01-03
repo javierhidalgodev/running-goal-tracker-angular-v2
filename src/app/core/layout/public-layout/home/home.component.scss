@@ -1,0 +1,56 @@
+:host {
+    @apply mb-20 px-4 flex flex-col gap-20 scroll-smooth
+}
+
+section {
+    &:not(:first-of-type) {
+        @apply mb-20 w-full flex flex-col gap-4
+    }
+
+    h1 {
+        @apply text-3xl text-center text-balance italic font-extrabold
+    }
+
+    &>div {
+        @apply flex flex-col justify-center gap-2 px-4;
+
+        p {
+            @apply p-4 flex-1 text-xl
+        }
+    
+        img {
+            @apply w-full h-auto flex-1 md:max-w-[50%]
+        }
+    }
+
+    &:nth-child(odd) {
+        div {
+            @apply md:flex-row-reverse
+        }
+    }
+
+    &:nth-child(even) {
+        div {
+            @apply md:flex-row
+        }
+    }
+}
+
+.hover-beat:hover {
+    animation: 'beat' 2s infinite;
+}
+
+@keyframes beat {
+    0% {
+        transform: scale(1.1);
+    }
+    12% {
+        transform: scale(.9);
+    }
+    25% {
+        transform: scale(1.2);
+    }
+    50% {
+        transform: scale(1);
+    }
+}

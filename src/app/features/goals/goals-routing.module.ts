@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { GoalListComponent } from './pages/goal-list/goal-list.component';
 import { GoalDetailsComponent } from './pages/goal-details/goal-details.component';
 import { privateGuard } from 'app/auth.guard';
-import { HomeComponent } from './home/home.component';
 import { NewGoalComponent } from './pages/new-goal/new-goal.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   {
@@ -13,8 +13,8 @@ const routes: Routes = [
     redirectTo: '/home'
   },
   {
-    path: 'home',
-    component: HomeComponent
+    path: 'dashboard',
+    component: DashboardComponent
   },
   {
     path: 'goals',

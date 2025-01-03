@@ -2,6 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { Auth, authState, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from '@angular/fire/auth';
 import { UserDataLogin } from '@models/user.model';
 import { Observable } from 'rxjs';
+import dayjs from 'dayjs/esm'
 
 @Injectable({
   providedIn: 'root'
@@ -58,7 +59,9 @@ export class AuthService {
         user.getIdTokenResult()
           .then(idTokenResult => {
             const tokenExpirationTime = idTokenResult.expirationTime
-            const timeUntilExpiration = new Date(tokenExpirationTime).getTime() - new Date().getTime()
+            const timeUntilExpiration = dayjs(tokenExpirationTime).diff(dayjs(), 'millisecond')
+            // console.log(timeUntilExpiration)
+            // const timeUntilExpiration = new Date(tokenExpirationTime).getTime() - new Date().getTime()
 
             setTimeout(() => {
               signOut(this._auth)

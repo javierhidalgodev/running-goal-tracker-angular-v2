@@ -20,9 +20,18 @@ import {
 } from '@shared/utils/validators.utils';
 import { GoalService } from '@services/goal.service';
 import { ToasterService } from '@services/toaster.service';
-import { ToasterMessages, ToasterStyles } from '@shared/constants/toaster.constants';
+import {
+  ToasterMessages,
+  ToasterStyles,
+} from '@shared/constants/toaster.constants';
 import { GoalCreate, GoalForm } from '@models/goal.model';
 import { timestampFromDate } from '@shared/utils/transformations.utils';
+import dayjs from 'dayjs/esm';
+import utc from 'dayjs/esm/plugin/utc';
+import tz from 'dayjs/esm/plugin/timezone';
+
+dayjs.extend(utc);
+dayjs.extend(tz);
 
 @Component({
   selector: 'app-goal-form',
@@ -62,7 +71,7 @@ export class GoalFormComponent {
     private _goalService: GoalService,
     private _toasterService: ToasterService,
     private _router: Router
-  ) { }
+  ) {}
 
   isRequired(field: FormFieldName) {
     return isRequired(field, this.goalForm);
@@ -90,7 +99,7 @@ export class GoalFormComponent {
 
   updateDateRange(field: 'startDate' | 'endDate') {
     const control = this.goalForm.get(field);
-
+    // console.log(dayjs.tz.guess());
     if (control) {
       const date = control.value;
 
@@ -105,7 +114,8 @@ export class GoalFormComponent {
 
         if (endDateControl) {
           if (
-            new Date(endDateControl.value).getTime() < new Date(date).getTime()
+            dayjs(endDateControl.value, 'millisecond') <
+            dayjs(date, 'millisecond')
           ) {
             control.setErrors({ dateRangeViolation: true });
           } else {
@@ -123,8 +133,8 @@ export class GoalFormComponent {
 
         if (startDateControl) {
           if (
-            new Date(startDateControl.value).getTime() >
-            new Date(date).getTime()
+            dayjs(startDateControl.value, 'millisecond') >
+            dayjs(date, 'millisecond')
           ) {
             control.setErrors({ dateRangeViolation: true });
           } else {
@@ -141,8 +151,8 @@ export class GoalFormComponent {
 
       const formValue: GoalForm = {
         ...this.goalForm.value,
-        startDate: timestampFromDate(this.goalForm.get('startDate')!.value),
-        endDate: timestampFromDate(this.goalForm.get('endDate')!.value)
+        startDate: timestampFromDate(dayjs(this.goalForm.get('startDate')!.value, {format: 'YYYY-MM-DD', utc: true}).toISOString()),
+        endDate: timestampFromDate(dayjs(this.goalForm.get('endDate')!.value, {format: 'YYYY-MM-DD', utc: true}).toISOString()),
       };
 
       try {

@@ -20,6 +20,7 @@ import {
 } from '@shared/constants/toaster.constants';
 import { timestampFromDate } from '@shared/utils/transformations.utils';
 import { isGoalComplete } from '@shared/utils/calculations.utils';
+import dayjs from 'dayjs/esm'
 
 @Component({
   selector: 'app-activity-form',
@@ -70,9 +71,9 @@ export class ActivityFormComponent {
 
     if (runDateControl) {
       const inputAtt: HTMLInputElement = this.runDateRef.nativeElement;
-      const min = new Date(inputAtt.attributes.getNamedItem('min')!.value);
-      const max = new Date(inputAtt.attributes.getNamedItem('max')!.value);
-      const runDate = new Date(runDateControl.value);
+      const min = dayjs(inputAtt.attributes.getNamedItem('min')!.value);
+      const max = dayjs(inputAtt.attributes.getNamedItem('max')!.value);
+      const runDate = dayjs(runDateControl.value);
 
       if (runDate < min || runDate > max) {
         runDateControl.setErrors({ dateRangeViolation: true });

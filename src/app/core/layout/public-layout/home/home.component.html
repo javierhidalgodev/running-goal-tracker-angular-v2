@@ -1,0 +1,50 @@
+<section class="w-full h-screen flex flex-col gap-4 justify-center items-center">
+    <img src="logo-text-white.svg" alt="Logo text" class="w-full h-fit max-sm:hidden" width="200" height="133">
+    <img src="logo-w-text.svg" alt="Logo text" class="w-full max-w-[300px] h-fit sm:hidden" width="200" height="133">
+    <p class="italic sm:text-2xl">Plan. Execute. Log.</p>
+    <a [routerLink]="user ? '/dashboard' : '/auth/sign-in'" class="w-fit px-4 py-2 text-sm font-semibold bg-green-600 hover:bg-green-700 rounded-md disabled:bg-neutral-500 disabled:text-neutral-400 disabled:cursor-not-allowed">
+        {{
+            user ? "Dashboard" : "Start now!"
+        }}
+    </a>
+    
+    <div class="absolute bottom-5 flex flex-col gap-2">
+        <button (click)="goTo('morescroll')">More
+        <svg class="hover:text-green-600 hover-beat" xmlns="http://www.w3.org/2000/svg" width="2.5em" height="2.5em" viewBox="0 0 24 24"><path fill="currentColor" d="M11.65 14.65q.15.15.35.15t.35-.15l2.8-2.8q.25-.25.125-.55T14.8 11H9.2q-.35 0-.475.3t.125.55zM12 22q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22m0-2q3.35 0 5.675-2.325T20 12t-2.325-5.675T12 4T6.325 6.325T4 12t2.325 5.675T12 20m0-8"/></svg></button>
+    </div>
+</section>
+<section class="pt-10" id="morescroll">
+    <h1>Everything You Need to Know at a Glance</h1>
+    <div>
+        <p>With just one glance, you can track all your progress in the app over time. The dashboard provides information about your logged activities, completed ones, and total kilometers covered. There's no better way to stay motivated than seeing all your progress summarized.</p>
+        <img [ngSrc]="'dashboard-panel.png'" alt="" width="200" height="164">
+    </div>
+</section>
+<section>
+    <h1>Plan Your Next Goal</h1>
+    <div>
+        <p>Think about the goal you want to achieve and how much time you think you’ll need to reach it. Don’t worry about how small it might be. Everything has a beginning, and every small effort counts. Little by little, you can increase your self-discipline and achieve the best version of yourself.</p>
+        <img [ngSrc]="'new-goal-panel.png'" alt="" width="200" height="130">
+    </div>
+</section>
+<section>
+    <h1>Order Leads to Success</h1>
+    <div>
+        <p>All your activities at a glance. The goals table shows you the most important details of each one: the title, start and end dates, the total kilometers you've set, and the status of each goal.</p>
+        <img [ngSrc]="'goals-table.png'" alt="" width="200" height="98">
+    </div>
+</section>
+<section>
+    <h1>In Detail</h1>
+    <div>
+        <p>You can also view each goal in detail. The detailed view of each goal shows you all the data related to it. Additionally, it displays the total kilometers covered since you started the activity, as well as each individual activity you’ve logged. This way, you’ll have a detailed overview and a general idea of your progress. It will help you stay on track to achieve your goals.</p>
+        <img [ngSrc]="'goal-details-panel.png'" alt="" width="200" height="133">
+    </div>
+</section>
+<section>
+    <h1>Every Individual Effort Is Key</h1>
+    <div>
+        <p>Each time you log an activity, simply enter the kilometers covered and the date. The app will remind you of your goal's date range as well as the total kilometers you set for yourself.</p>
+        <img [ngSrc]="'activity-register-panel.png'" alt="" width="200" height="90">
+    </div>
+</section>

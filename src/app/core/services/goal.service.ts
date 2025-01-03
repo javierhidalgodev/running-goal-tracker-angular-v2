@@ -41,7 +41,7 @@ export class GoalService {
   }
 
   async deleteGoal(goalId: string) {
-    console.log(this._networkService.networkStatus)
+    // console.log(this._networkService.networkStatus)
     if(!this._networkService.networkStatus) {
       throw Error('network error')
     }
@@ -109,7 +109,7 @@ export class GoalService {
    * @param updatedGoal Objeto del goal recalculado para actualizarlo siempre que la acción de añadir la actividad sea correcta
    */
   async createActivityToGoal(activity: ActivityCreate, updatedGoal: Goal) {
-    console.log(activity, updatedGoal)
+    // console.log(activity, updatedGoal)
     const docRefGoal = doc(this._goalCollection, updatedGoal.id);
     const docRefActivity = doc(this._activityCollection)
 

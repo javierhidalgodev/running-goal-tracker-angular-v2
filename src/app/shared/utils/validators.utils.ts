@@ -1,5 +1,11 @@
 import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from "@angular/forms"
 import { isValidDate } from 'rxjs/internal/util/isDate'
+import dayjs from "dayjs/esm"
+import utc from 'dayjs/esm/plugin/utc'
+import tz from 'dayjs/esm/plugin/timezone'
+
+dayjs.extend(utc)
+dayjs.extend(tz)
 
 export type FormFieldName = 'email' | 'password' | 'title' | 'description' | 'startDate' | 'endDate' | 'km' | 'runDate'
 
@@ -45,8 +51,8 @@ export const dateRangeValidator = (field: 'startDate' | 'endDate' | 'runDate', f
 
 export const invalidDateValidator = (): ValidatorFn => {
 	return (control: AbstractControl): ValidationErrors | null => {
-		const value = new Date(control.value)
-		
-		return !isValidDate(value) ? { invalidDate: true } : null
+		const value = dayjs(control.value, {format: 'YYYY-MM-DD', utc: true})
+
+		return !isValidDate(value.toDate()) ? { invalidDate: true } : null
 	}
 }
